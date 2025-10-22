@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding-bottom: 3.5rem;
+}
+.titleContainer{
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-right: auto;
+}
+
+.cardsContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+.title{
+    text-align: left;
+    padding-left: 3rem;
+    font-family: var(--id-font-family);
+    color: var(--id-grey-color);
+    text-transform: uppercase;
+}

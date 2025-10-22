@@ -1,0 +1,209 @@
+.modal {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.content{
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.closeButton {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #666;
+  transition: 0.2s;
+}
+
+.closeButton:hover {
+  color: #000;
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 90vw;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.modalContentContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 1rem;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modalBodyContainer {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.category legend {
+  font-weight: 600;
+  color: #444;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.label {
+  font-weight: 600;
+  color: #444444;
+  padding: 0.75rem 0.5rem;
+  background-color: rgba(40, 126, 6, 0.2);
+  border-bottom: solid 2px var(--id-green-color);
+  border-top: solid 2px var(--id-green-color);
+}
+
+.input, 
+.textarea {
+  padding: 0.85rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  width: 96%;
+  outline: none;
+  transition: 0.2s;
+}
+
+.checkboxBackground{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border: 1px solid #919191;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  width: 8rem;
+  transition: 0.2s ease-in-out;
+}
+
+.checkboxBackground:hover{
+  background-color: #ebebeb;
+}
+
+.checkboxLabel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.checkboxText{
+  color: #313131;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.modalCheckboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.modalCheckboxContainer:hover{
+  background-color: #ebebeb;
+  border-radius: 4px;
+}
+
+.checkboxContainer{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.selectInput{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15rem;
+  height: 3rem;
+  background-color: var(--id-green-color);
+  color: #fff;
+  border-radius: 4px;
+}
+
+.selectInput:hover{
+  cursor: pointer;
+  background-color: var(--id-green-color-hover);
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--id-green-color);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--id-green-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.cancel {
+  background-color: #ef4444;
+}
+
+.cancel:hover {
+  background-color: #dc2626;
+}
+
+.modalButtonContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+}
+
+.errorText {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.inputError {
+  border: 2px solid red !important;
+}
+

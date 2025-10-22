@@ -1,0 +1,352 @@
+.modalContent {
+  width: 100%;
+}
+
+.modal{
+  width: 40rem;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+.modal .content{
+  padding: 0;
+}
+
+.modalHeader {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1.5rem;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  font-family: var(--id-font-family);
+}
+
+.modalBody {
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.formRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+  font-family: var(--id-font-family);
+}
+
+.input {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+  font-family: var(--id-font-family);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--id-green-color);
+  box-shadow: 0 0 0 1px var(--id-green-color);
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #374151;
+  transition: border-color 0.2s;
+  font-family: var(--id-font-family);
+}
+
+.selectButton:hover {
+  border-color: #9ca3af;
+}
+
+.selectIcon {
+  color: #6b7280;
+  transition: transform 0.2s;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdownOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.875rem;
+  color: #374151;
+  font-family: var(--id-font-family);
+}
+
+.dropdownOption:hover {
+  background-color: #f3f4f6;
+}
+
+.dropdownOption.selected {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.checkbox {
+  margin: 0;
+}
+
+.statusGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switchInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switchLabel {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #dc2626;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.switchSlider {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.switchInput:checked + .switchLabel {
+  background-color: var(--id-green-color);
+}
+
+.switchInput:checked + .switchLabel .switchSlider {
+  transform: translateX(26px);
+}
+
+.statusText {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+  font-family: var(--id-font-family);
+}
+
+.permissionsButton {
+  background-color: var(--id-green-color) !important;
+  color: white !important;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.permissionsButton:hover {
+  opacity: 0.9;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 1.5rem;
+}
+
+.saveButton {
+  background-color: var(--id-green-color) !important;
+  color: white !important;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.saveButton:hover {
+  opacity: 0.9;
+}
+
+.cancelButton {
+  background-color: #dc2626 !important;
+  color: white !important;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.cancelButton:hover {
+  opacity: 0.9;
+}
+
+.passwordInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInput {
+  padding: 0.75rem;
+  padding-right: 3rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+  font-family: var(--id-font-family);
+  width: 100%;
+}
+
+.passwordInput:focus {
+  outline: none;
+  border-color: var(--id-green-color);
+  box-shadow: 0 0 0 1px var(--id-green-color);
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: color 0.2s;
+  border-radius: 0.25rem;
+}
+
+.passwordToggle:hover {
+  color: var(--id-green-color);
+  background-color: #f3f4f6;
+}
+
+.passwordToggle:focus {
+  outline: none;
+  color: var(--id-green-color);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+/* Skeleton Styles */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.2s infinite;
+  border-radius: 0.375rem;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeletonInput {
+  height: 2.5rem;
+  width: 100%;
+}
+
+.skeletonLabel {
+  height: 1rem;
+  width: 5rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeletonButton {
+  height: 2.5rem;
+  width: 8rem;
+}
+
+.skeletonRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.skeletonToggle {
+  height: 1.5rem;
+  width: 3.125rem;
+  border-radius: 1.5rem;
+}

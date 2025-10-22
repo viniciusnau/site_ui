@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: "Helvetica", "Arial", sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.headerContainer {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cardContainer h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin: 0.5rem 0 1rem;
+}
+
+.imageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.mainImage {
+  width: 100%;
+  max-width: 900px;
+  max-height: 600px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.textContainer {
+  font-family: var(--id-font-family);
+  width: 100%;
+  margin: 0 auto 2.5rem;
+  font-size: 1.15rem;
+  color: #999999;
+}
+
+.textContainer p {
+  margin-bottom: 1.2rem;
+}
+
+.card{
+    font-family: var(--id-font-family);
+    color: #757575;
+}
+
+.line{
+    width: 100%;
+    height: 2px;
+    background-color: var(--id-green-color) ;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    padding: 1rem 2rem;
+    background-color: var(--id-green-color);
+    color: #fff;
+    font-family: var(--id-font-family);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color:  var(--id-green-color-hover);
+}
+
+.title{
+    font-family: var(--id-font-family);
+    color: var(--dark-green-color);
+}
+
+.subtitle{
+    font-family: var(--id-font-family);
+    color: #757575;
+}
+
+.relatedContainer {
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+.relatedTitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}

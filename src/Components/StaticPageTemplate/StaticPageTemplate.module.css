@@ -1,0 +1,136 @@
+.staticPage{
+    padding: 0 15rem 2rem;
+}
+.container{
+    text-align: justify;
+    line-height: 1.6;
+    box-sizing: border-box;
+    font-family: var(--id-font-family);
+}
+
+.title{
+    font-size: 35px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: var(--id-font-family);
+    color: var(--id-grey-color);
+    padding-left: 31px;
+}
+
+.subtitle{
+    font-family: var(--id-grey-color);
+    color: var(--id-grey-color);
+    font-weight: 700;
+}
+
+.text{
+    font-size: 17px;
+    font-family: var(--id-font-family);
+    color: var(--id-grey-color);
+    font-weight: 400;
+}
+
+.orderedList{
+    list-style-type: none;
+    font-family: var(--id-font-family);
+    color: var(--id-grey-color);
+}
+
+.unorderedList{
+    font-family: var(--id-font-family);
+    color: var(--id-grey-color);
+}
+
+.link {
+    text-decoration: none;
+    color: var(--id-grey-color);
+}
+
+.subtitle .link{
+    font-family: var(--id-font-family);
+    color: inherit;
+}
+
+.link:hover{
+    color: var(--id-green-color);
+    text-decoration: none;
+}
+
+.styleNone {
+    list-style-type: none;
+}
+
+.button{
+    cursor: pointer;
+    width: 10rem;
+    height: 3rem;
+    font-family: var(--id-font-family);
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    background-color: var(--id-red-color);
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: 0.2s ease-in-out;
+}
+.imprimir{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+.btndownload{
+    background-color: rgb(255, 255, 255);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 16px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 6px;
+    color: rgb(68, 68, 68);
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 2px 5px rgba(184, 183, 183, 0.3);
+}
+
+.btndownload:hover {
+    background-color: #f8f8f8;
+    color: #333;
+    border-color: #adadad;
+    transform: scale(1.05);
+}
+
+.quebra{
+    width: 100%;
+    background: var(--light-grey-color);
+    height: 2px;
+    border-radius: 5rem;
+    box-shadow: 0 2px 4px rgba(129, 129, 129, 0.3);
+}
+
+.button:hover{
+    background-color: var(--id-green-color);
+    transform: scale(1.05);
+}
+
+@media (max-width: 1500px){
+    .staticPage{
+        padding: 0 10rem 2rem;
+    }
+}
+
+@media (max-width: 1000px){
+    .staticPage{
+        padding: 0 7rem 2rem;
+    }
+}
+
+@media (max-width: 750px){
+    .staticPage{
+        padding: 0 2rem 2rem;
+    }
+}

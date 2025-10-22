@@ -1,0 +1,22 @@
+@import "../../colors.css";
+
+.container {
+    cursor: var(--cursor-pointer);
+    border: none;
+    border-radius: var(--border-radius-input);
+    padding: 0.5rem 1rem;
+    background-color: var(--id-green-color);
+    color: white;
+    font-size: 1rem;
+}
+
+.container:hover {
+    background-color: var(--id-green-color-hover);;
+    box-shadow: var(--box-shadow);
+}
+
+.container:disabled {
+    background-color: var(--fifth-button-color-disabled);
+    cursor: var(--cursor-not-allowed);
+    color: var(--text-disabled-blue-greysabled);
+}

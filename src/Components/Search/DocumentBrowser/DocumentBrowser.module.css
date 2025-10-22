@@ -1,0 +1,354 @@
+.documentBrowserContainer {
+    display: flex;
+    gap: 20px; 
+    padding: 20px;
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+
+.sidebar {
+    flex: 0 0 250px; 
+    border-radius: 8px;
+    box-shadow: var(--light-shadow); 
+    padding: 0.5rem 1rem;
+}
+
+
+.mainContent {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+}
+
+
+.mobileFilterToggle {
+    display: none; 
+    margin-bottom: 20px; 
+}
+
+.filterToggleButton {
+    background-color: var(--id-red-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%; 
+    justify-content: center;
+}
+
+.filterToggleButton:hover {
+    background-color: var(--hover-dark-red);
+}
+
+.modal{
+    background: var(--off-white-color);
+}
+.content{
+    padding: 0 3rem 3rem;
+}
+
+.searchAndFilterContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem; 
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+.documentListContainer {
+    padding: 0;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.totalFiles {
+    font-weight: bold;
+    text-align: right;
+    color: #555;
+    padding-right: 1rem; 
+}
+
+.documentTypeSection {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.documentTypeTitle {
+    background-color: #505050;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.documentCard {
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.documentCard:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.documentTitle {
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.3;
+}
+
+.documentMeta {
+    display: flex;
+    font-size: 0.85rem;
+    color: #777;
+    gap: 1rem;
+}
+
+.documentinformation{ 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.documentActions {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+    margin-top: 0.5rem;
+    position: relative;
+    flex-wrap: wrap; 
+}
+
+
+.downloadButton, .viewButton {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 0.5rem; 
+    white-space: nowrap; 
+    min-width: 90px; 
+}
+.button{
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.button:hover{
+    transform: scale(1.05);
+}
+.downloadButton {
+    background-color: #9fcc4d; 
+    color: white;
+}
+
+.downloadButton:hover {
+    background-color: #8bb742;
+}
+
+.viewButton {
+    background-color: transparent;
+    color: var(--id-red-color);
+}
+
+.viewButton:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+}
+
+
+.contactContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.contactButton {
+    background-color: rgba(159, 197, 77, 0.5); 
+    color: #333; 
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.contactButton:hover {
+    background-color: rgba(159, 197, 77, 0.7);
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 150px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.contactContainer:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.headsetIcon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headsetIcon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.noDocumentsMessage {
+    text-align: center;
+    color: #777;
+    padding: 2rem;
+    font-style: italic;
+}
+
+
+.filterModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+}
+
+.filterModal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modalHeader h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.closeModalButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeModalButton:hover {
+    color: #333;
+}
+
+
+
+@media (max-width: 768px) {
+    .documentBrowserContainer {
+        flex-direction: column; 
+        padding: 15px;
+    }
+
+    .sidebar {
+        display: none; 
+    }
+
+    .mobileFilterToggle {
+        display: block; 
+    }
+
+    .mainContent {
+        width: 100%; 
+    }
+
+    .downloadButton, .viewButton {
+        width: 100%; 
+        justify-content: center;
+    }
+
+    .documentActions {
+        flex-direction: column; 
+        align-items: stretch; 
+    }
+
+
+    .searchAndFilterContainer {
+        padding: 0; 
+        background-color: transparent; 
+        box-shadow: none; 
+        margin-bottom: 1rem;
+    }
+}

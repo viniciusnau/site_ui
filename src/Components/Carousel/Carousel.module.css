@@ -1,0 +1,61 @@
+.carouselContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+  }
+  
+  .itemsContainer {
+    display: flex;
+    overflow: hidden;
+    flex: 1;
+    gap: 8px;
+  }
+  
+  .item {
+    flex: 0 0 auto;
+  }
+  
+  .navButton {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .carouselContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .navButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #333;
+    transition: color 0.2s;
+  }
+  
+  .navButton:disabled {
+    color: #ccc;
+    cursor: default;
+  }
+  
+  .itemsContainer {
+    overflow: hidden;
+    flex: 1;
+    padding: 1rem 0;
+  }
+  
+  .itemsWrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .item {
+    flex-shrink: 0;
+    padding: 0 8px;
+  }
+    

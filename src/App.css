@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "./colors.css";
+
+:root {
+  --font-size: 1rem;
+  --cursor-pointer: pointer;
+  --cursor-not-allowed: not-allowed;
+  --cursor-default: default;
+  --cursor-text: text;
+  --montserrat-font: 'Montserrat', sans-serif;
+}
+
+body {
+  margin: 0;
+
+  font-family: var(--id-font-family);
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.AppBody {
+  flex-grow: 1;
+  padding: 20px;
+}
+main{
+  margin: 0;
+  padding: 0;
+}
+
+.button-to-top {
+  background-color: rgba(159, 197, 77, 0.5) !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 50% !important;
+  right: 5rem !important;
+  bottom: 5rem !important;
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  transition: all 0.3s ease-in-out;
+  z-index: 1002;
+}
+
+.button-to-top:hover {
+  background-color: rgba(159, 197, 77, 1) !important;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3) !important;
+  transform: scale(1.15);
+}
+
+@media (max-width: 900px) {
+  .button-to-top{
+    display: none;
+  }
+}
+
+.cursor {
+  background-image: url(./Assets/pointer.png);
+  display: flex;
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin: 0.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.invert-colors {
+  filter: invert(70%);
+}
+
+.grayscale {
+  filter: grayscale(100%);
+}
+.container-acessibility{
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 1rem;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.container-acessibility {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 1rem;
+  gap: 1rem;
+}
+
+.App:not(.viewer) div[class*="Calendar__day"],
+.App:not(.viewer) button[class*="Calendar__yearText"],
+.App:not(.viewer) button[class*="Calendar__monthText"],
+.App:not(.viewer) button[class*="Calendar__yearSelectorText"],
+.App:not(.viewer) button[class*="Calendar__monthSelectorText"],
+.App:not(.viewer) button[class*="Calendar__monthArrowWrapper"] {
+  cursor: var(--cursor-pointer) !important;
+}
+
+@media print {
+  @page {
+    margin: 0;
+    
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    box-shadow: none;
+    background: white;
+  }
+
+  * {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  #Breadcrumb,
+  #CardButton,
+  #ally,
+  .nav,
+  #footer,
+  #mobileMenu,
+  #headerButtons,
+  button,
+  #rightGroup,
+  button-imprimir,
+  .onepress-menu {
+    display: none !important;
+  }
+}

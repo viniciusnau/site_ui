@@ -1,0 +1,110 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 3rem;
+}
+
+.header {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  height: 4rem;
+  width: auto;
+  padding: 0 1rem;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.icon {
+  color: #1e3b38;
+}
+
+.title {
+  font-family: var(--id-font-family);
+  font-weight: bold;
+  font-size: 18px;
+  color: #1e3b38;
+}
+
+.titleActive {
+  color: #ffffff;
+}
+
+.buttonActive {
+  background-color: #1e3b38;
+}
+
+.content {
+  display: flex;
+
+  background-color: #ffffff;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 0 8px 8px 8px;
+}
+
+.hasButtonContainer {
+  position: absolute;
+  top: 3rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.hasButton {
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--id-green-color);
+  transition: 0.2s ease;
+}
+
+.hasButton:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
+.hasButtonTitle {
+  font-family: var(--id-font-family);
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.hasButtonIcon {
+  color: #ffffff;
+}
+
+@media (max-width: 1600px) {
+
+  .button {
+    width: 10rem;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .hasButtonContainer {
+    top: 2rem;
+  }
+
+  .hasButton {
+    width: 10rem;
+  }
+}

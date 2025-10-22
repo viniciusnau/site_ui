@@ -1,0 +1,241 @@
+@import "../../colors.css";
+
+.container, .firstColumn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-family: var(--id-font-family);
+
+}
+
+.inputContainer, .firstColumn{
+  display: flex;
+  gap: 1rem;
+}
+.calendarsContainer{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem
+} 
+.inputContainer{
+  height: 8rem;
+}
+
+.calendar input{
+  background-color: transparent !important;
+  box-shadow: none;
+  width: 100% !important;
+}
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  padding-top: 2px;
+  width: 13rem;
+}
+
+.align{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.renderFooter {
+  display: flex;
+  justify-content: center;
+}
+
+.input,
+.selected {
+  width: 100%;
+}
+
+.type, .keyword{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.type{
+  display: none;
+}
+
+.code {
+  background-color: var(--button-off-white);
+  margin: 0 0.5rem 0.5rem 0;
+  border: none;
+  width: 10rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  padding: 0 0 0 1rem;
+  font-size: var(--font-size);
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.button {
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--id-green-color);
+  box-shadow: 0 10px 10px -10px var(--shadow-dark-grey);
+  font-size: var(--font-size);
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.button, .cleanButton {
+  width: 9rem;
+  height: 3rem;
+  border-radius: var(--border-radius-input);
+  text-align: center;
+  font-family: var(--montserrat-font);
+  box-shadow: var(--light-shadow);
+}
+
+.code:hover,
+.cleanButton:hover {
+  background-color: var(--hover-grey);
+}
+
+.button:hover {
+  background-color: var(--hover-light-green);
+}
+
+.button:disabled {
+  background-color: var(--hover-light-green);
+}
+
+.buttonsContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.cleanButton{
+  border: none;
+  font-size: var(--font-size);
+  color: #fff;
+  border-radius: var(--border-radius-input);
+  background-color: rgb(207, 29, 29);
+}
+
+.cleanButton:hover{
+  background-color: rgb(179, 9, 9);
+}
+
+.cleanButton:disabled{
+  background-color: #c26161;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: var(--off-white-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.35rem;
+  z-index: 1000;
+  height: auto;
+  box-shadow: 0 2px 4px rgba(34, 27, 27, 0.2);
+  text-align: center;
+  margin: 1.5rem 0 0 0;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+}
+
+.question {
+  width: 10rem;
+}
+
+@keyframes fadeIn {
+  from {
+	opacity: 0;
+  }
+  to {
+	opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+	opacity: 1;
+  }
+  to {
+	opacity: 0;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .align{
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .inputContainer{
+    flex-direction: column;
+    height: 12rem;
+    align-items: center;
+  }
+}
+
+@media (max-width: 750px) {
+  .container{
+    width: 100vw;
+  }
+  .calendarsContainer{
+    width: 90%;
+    margin: auto;
+    justify-content: space-between;
+    gap: 0;
+  }
+  .calendar{
+    width: 48%;
+  }
+  .type, .keyword{
+    width: 100vw;
+  }
+  .firstColumn{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .inputContainer{
+    height: 100%;
+  }
+  .info{
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+  }
+  .lastColumn{
+    margin: 1rem 0;
+    width: 100vw;
+  }
+}
+
+@media(max-width: 400px){
+  .calendarsContainer{
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .calendar{
+    width: 100%;
+  }
+}

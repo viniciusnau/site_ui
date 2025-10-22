@@ -1,0 +1,203 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subOptions .container {
+  margin: 0;
+}
+
+.title {
+  margin: 0 0 0 1rem;
+  font-family: var(--id-font-family);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--id-grey-color);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--off-white-color);
+  color: var(--id-grey-color);
+  border: none;
+  height: 48px;
+  border-radius: var(--border-radius-input);
+  cursor: var(--cursor-pointer);
+  padding: 0 1rem;
+  font-family: var(--id-font-family);
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.button:hover {
+  background-color: var(--hover-grey);
+  transform: scale(1.01);
+  z-index: 10;
+}
+
+.selected {
+  background-color: var(--button-dark-green);
+  color: var(--off-white-color);
+}
+
+.selected:hover {
+  color: var(--id-grey-color);
+}
+
+.list,
+.item,
+.subOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subOptions {
+  margin-left: 1rem;
+}
+
+.icon {
+  transition: transform 0.3s ease;
+}
+
+.iconOpen {
+  transform: rotate(180deg);
+}
+
+.menuWrapper {
+  position: relative;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #666;
+}
+
+.iconButton:hover {
+  color: #000;
+}
+
+.menu {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 140px;
+}
+
+.menu button {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu button:hover {
+  background-color: #f0f0f0;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2rem;
+  min-width: 13rem;
+}
+
+.clearButton, .selectAllButton {
+  background-color: var(--id-red-color);
+  color: var(--off-white-color);
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  width: 100%;
+  border-color: transparent;
+}
+
+.clearAllButton{
+  border-color: var(--id-red-color);
+  color: var(--id-red-color);
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  background: transparent;
+  font-weight: bold;
+
+}
+
+.selectAllButton{
+  background-color: var(--id-green-color);
+}
+
+.item {
+  position: relative;
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
+}
+
+.moreVerticalContainer {
+  position: relative;
+  margin: auto;
+  margin-right: 0;
+  width: 5rem;
+  justify-content: end;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.moreVerticalIcon {
+  cursor: pointer;
+  color: #666;
+}
+
+.dropdownMenu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 14px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  min-width: 120px;
+  padding: 0.2rem;
+  gap: 0.1rem;
+}
+
+.dropdownItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.dropdownItem:hover {
+  background-color: #f5f5f5;
+}
+
+.button {
+  flex-grow: 1;
+}
+

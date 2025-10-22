@@ -1,0 +1,41 @@
+.button {
+    margin-left: 1rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--id-green-color);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--id-green-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.cancel {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--id-red-color);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.cancel:hover {
+    background-color: var(--id-red-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}

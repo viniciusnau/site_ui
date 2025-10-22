@@ -1,0 +1,151 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.galleryContainer {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.swiperContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.galleryImage {
+  width: 100%;
+  max-height: 315px;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1173px;
+}
+
+.inputButton {
+  border: none;
+  background-color: transparent;
+  border-radius: 8px;
+  padding: 5px 10px;
+  transition: all 0.2s ease;
+}
+
+.inputButton:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
+.menuContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mapContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  width: 100%;
+}
+
+.message {
+  font-family: var(--id-font-family);
+  font-size: 2rem;
+  font-weight: 300;
+  color: #ffffff;
+  text-align: center;
+}
+
+.cursorActive {
+  cursor: pointer;
+}
+
+@media (max-width: 1400px) {
+  .galleryImage {
+    max-height: 260px;
+  }
+
+  .search {
+    width: 950px;
+  }
+}
+
+@media (max-width: 1200px){
+  .container {
+    margin-top: 96px;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  .galleryImage {
+    max-height: 220px;
+  }
+
+  .searchContainer {
+    height: auto;
+    padding: 1rem;
+  }
+
+  .search {
+    width: 700px;
+  }
+
+  .message {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .galleryImage {
+    max-height: 180px;
+  }
+
+  .message {
+    line-height: 1.4;
+  }
+
+  .searchContainer {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .mapContainer {
+    padding: 1.5rem 0;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 400px) {
+  .galleryImage {
+    max-height: 140px;
+  }
+
+  .message {
+    font-size: 1.2rem;
+  }
+}

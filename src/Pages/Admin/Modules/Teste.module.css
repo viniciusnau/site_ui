@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 3rem;
+  background: none;
+  border: none;
+}
+
+.button:hover {
+  border-radius: 1.5rem;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1);
+}

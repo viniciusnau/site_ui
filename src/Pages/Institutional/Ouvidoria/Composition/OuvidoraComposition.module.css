@@ -1,0 +1,15 @@
+.unorderedList{
+    list-style: none;
+}
+
+.subTitle{
+    font-size: 20px;
+}
+.line{
+    font-size: 17px;
+}
+
+.link{
+    cursor: pointer;
+    font-size: 17px;
+}

@@ -1,0 +1,294 @@
+@import "../../colors.css";
+
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.adminActions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.adminActionsBanners {
+  position: absolute;
+  top: -0.5rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.wrapper:hover .adminActionsBanners {
+  opacity: 0;
+}
+
+.wrapper:hover .adminActions {
+  opacity: 1;
+}
+
+.adminBanner {
+  background: none;
+  border: none;
+  border-radius: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  backdrop-filter: blur(4px);
+}
+
+.adminButton {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.adminButton:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.editButton:hover {
+  background: rgba(159, 197, 77, 0.1);
+  border: 1px solid rgba(159, 197, 77, 0.3);
+}
+
+.deleteButton:hover {
+  background: rgba(204, 34, 41, 0.1);
+  border: 1px solid rgba(204, 34, 41, 0.3);
+}
+
+.highlightButton:hover {
+  background: rgba(255, 239, 18, 0.1);
+  border: 1px solid rgba(255, 239, 18, 0.8);
+}
+
+.activeHighlightButton {
+  background: rgba(255, 239, 18, 0.8);
+  border: 1px solid rgba(255, 239, 18, 1);
+}
+
+.bookmarkIcon {
+  stroke: #000000;
+  fill: none;
+  transition: all 0.3s ease;
+}
+
+.bookmarkIcon[data-active="true"] {
+  stroke: #ffd700;
+  fill: #ffd700;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  text-decoration: none;
+}
+
+.container:hover .title {
+  color: var(--id-red-color);
+}
+
+.dateAndTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  width: 30rem;
+}
+
+.imageContainer {
+  flex: 0 0 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 113px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.dateContainer {
+  padding: 0rem 0.5rem;
+  border-radius: 4px;
+  background-color: #e6e6e6;
+  width: fit-content;
+}
+
+.date {
+  color: #474747;
+  font-size: 0.85rem;
+  font-family: var(--id-font-family);
+  font-weight: 300;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.icon {
+  color: #000;
+}
+
+.container:hover .icon {
+  color: var(--id-red-color);
+}
+
+.titleContainer {
+  display: flex;
+  align-items: flex-start;
+}
+
+.title {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: auto;
+  text-overflow: ellipsis;
+  line-height: 1.1rem;
+  text-align: left;
+  font-family: var(--id-font-family);
+  text-decoration: none;
+  color: #474747;
+  font-size: 0.875rem;
+  font-weight: 400;
+  scrollbar-width: none;
+}
+.title::-webkit-scrollbar {
+  display: none;
+}
+
+.middleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.downloadContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: #373737;
+  width: 90px;
+  height: 33px;
+  border-radius: 8px;
+}
+
+.downloadContainer:hover {
+  background-color: var(--id-green-color);
+}
+
+.downloadButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.downloadText {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 14px;
+  gap: 0.5rem;
+}
+
+@media (max-width: 1400px) {
+  .container {
+    width: 13rem;
+    height: 13rem;
+  }
+
+  .title {
+    font-size: small;
+  }
+
+  .date {
+    font-size: small;
+  }
+}
+
+@media (max-width: 1000px) {
+  .container {
+    width: 10rem;
+    height: 12rem;
+  }
+
+  .titleContainer {
+    padding: 0.3rem 1rem;
+  }
+
+  .title {
+    padding: 0;
+    font-size: smaller;
+    display: flex;
+    text-align: center;
+  }
+
+  .dateContainer {
+    width: 7rem;
+  }
+
+  .date {
+    font-size: smaller;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    width: 8rem;
+    height: 10rem;
+  }
+
+  .titleContainer {
+    padding: 0.3rem 1rem;
+  }
+
+  .title {
+    padding: 0;
+    font-size: smaller;
+    display: flex;
+    text-align: center;
+  }
+
+  .dateContainer {
+    width: 7rem;
+  }
+
+  .date {
+    font-size: smaller;
+  }
+}
