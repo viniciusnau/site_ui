@@ -30,7 +30,6 @@ const MenuItemEditor = ({
     return `${baseClass}`.trim();
   };
 
-  // ----------- DnD config ----------- //
   const [{ isDragging }, dragRef] = useDrag({
     type: ITEM_TYPE,
     item: { item, index, level },
@@ -149,33 +148,51 @@ const MenuItemEditor = ({
     }
   };
 
-const isInside = isOver && localDropPosition === "inside";
+  const isInside = isOver && localDropPosition === "inside";
 
-const dropStyle = isInside
-  ? "solid 2px rgba(245, 158, 11, 0.6)"
-  : isOver && localDropPosition === "above"
-  ? "solid 2px rgba(79, 70, 229, 0.6)"
-  : isOver && localDropPosition === "below"
-  ? "solid 2px rgba(34, 197, 94, 0.6)"
-  : "none";
+  let dropStyle: React.CSSProperties = {};
 
-const dropBackground = isInside ? "rgba(245, 158, 11, 0.1)" : "transparent";
+  if (isInside) {
+    dropStyle = {
+      border: "2px solid rgba(245, 158, 11, 0.6)",
+      borderTop: "none",
+      backgroundColor: "rgba(245, 158, 11, 0.1)",
+      transition: "all 0.3s ease-in-out",
+      marginBottom: "83px",
+    };
+  } else if (isOver && localDropPosition === "above") {
+    dropStyle = {
+      borderTop: "solid 2px rgba(79, 70, 229, 0.6)",
+      backgroundColor: "transparent",
+      transition: "all 0.2s ease-in-out",
+      paddingTop: "10px",
+    };
+  } else if (isOver && localDropPosition === "below") {
+    dropStyle = {
+      borderBottom: "solid 2px rgba(34, 197, 94, 0.6)",
+      backgroundColor: "transparent",
+      transition: "all 0.2s ease-in-out",
+      paddingBottom: "10px",
+    };
+  } else {
+    dropStyle = {
+      border: "none",
+      backgroundColor: "transparent",
+    };
+  }
 
-return (
-  <div
-    ref={ref}
-    className={getClass("editorContainer")}
-    style={{
-      width: `${width - 2}%`,
-      opacity: isDragging ? 0.4 : 1,
-      border: dropStyle,
-      backgroundColor: dropBackground,
-      marginRight: isInside ? `${level + 20 - (4 * level)}px`: 0,
-      borderRadius: "4px",
-      transition: "all 0.2s ease",
-      padding: "2px",
-    }}
-  >
+  return (
+    <div
+      ref={ref}
+      className={getClass("editorContainer")}
+      style={{
+        width: `${width - 2}%`,
+        opacity: isDragging ? 0.4 : 1,
+        marginRight: isInside ? `${level + 20 - 4 * level}px` : 0,
+        transition: "all 0.2s ease",
+        ...dropStyle,
+      }}
+    >
       <div className={getClass("editorContent")}>
         <div className={getClass("editorCard")}>
           <GripVertical size={16} className={getClass("grip")} />
@@ -221,7 +238,7 @@ return (
               className={`${getClass("button")} ${getClass("cancel")}`}
               title="Deletar"
             >
-              <Trash2 size={16} style={{ marginRight: 6 }}/> Remover
+              <Trash2 size={16} style={{ marginRight: 6 }} /> Remover
             </button>
           </div>
         </div>
