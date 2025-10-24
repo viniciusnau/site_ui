@@ -22,6 +22,7 @@ import bannerSlice from "./Slices/BannerSlice";
 import containerSlice from "./Slices/ContainerSlice";
 import serviceButtonsSlice from "./Slices/ServiceButtonsSlice";
 import quickAccessButtonsSlice from "./Slices/QuickAccessButtonsSlice";
+import CoresAndUnitsSlice from './Slices/CoresAndUnitsSlice';
 
 const reducer = combineReducers({
   a11ySlice,
@@ -47,6 +48,7 @@ const reducer = combineReducers({
   containerSlice,
   serviceButtonsSlice,
   quickAccessButtonsSlice,
+  CoresAndUnitsSlice,
 });
 
 export const store = configureStore({ reducer });

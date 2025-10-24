@@ -221,6 +221,12 @@ interface quickAccessButtonsForm{
   link: string;
 }
 
+interface UnityAndCores{
+  id: number;
+  core_name: string;
+  units: Unit[];
+}
+
 export type {
   WebsiteInformation,
   SocialMedia,
@@ -247,4 +253,5 @@ export type {
   containerForm,
   serviceButtonsForm,
   quickAccessButtonsForm,
+  UnityAndCores,
 };

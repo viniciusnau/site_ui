@@ -93,7 +93,7 @@ export const {
 export default UnitSlice.reducer;
 
 export const fetchUnit =
-  () =>
+  (published?: string) =>
   async (
     dispatch: (arg0: {
       payload: any;

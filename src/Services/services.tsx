@@ -21,6 +21,7 @@ import {
   containerForm,
   serviceButtonsForm,
   quickAccessButtonsForm,
+  UnityAndCores,
 } from "./interfaces";
 
 class ApiService {
@@ -239,8 +240,9 @@ class ApiService {
     return this.get<User[]>(`/authors/${model}/`, true);
   }
 
-  async getCore(): Promise<Core[]> {
-    return this.get<Core[]>(`/core/`);
+  async getCore(published?: string): Promise<Core[]> {
+    const query = published ? `?published=${published}` : "";
+    return this.get<Core[]>(`/core/${query}`);
   }
 
   async postCore(core: string): Promise<Core> {
@@ -293,8 +295,9 @@ class ApiService {
     return this.delete<TypeOfService>(`/type-of-service/${id}/`);
   }
 
-  async getUnit(): Promise<Unit[]> {
-    return this.get<Unit[]>(`/unit/`);
+  async getUnit(published?: string): Promise<Unit[]> {
+    const query = published ? `?published=${published}` : "";
+    return this.get<Unit[]>(`/unit/${query}`);
   }
 
   async postUnit(body: any): Promise<Unit> {
@@ -534,6 +537,11 @@ async getCategory(ids?: number[]): Promise<categoryForm> {
   async deleteQuickAccessButtons(id: number): Promise<quickAccessButtonsForm>{
     return this.delete<quickAccessButtonsForm>(`/quick-access-buttons/${id}/`)
   }
+
+  async getUnityAndCores(published?: string): Promise<UnityAndCores> {
+    const query = published ? `?published=${published}` : ""; 
+    return this.get<UnityAndCores>(`/cores-units/${query}`);
+  }
 }
 
 const apiService = new ApiService();
@@ -553,7 +561,7 @@ const services = {
   patchFAQ: (body: any, id: number) => apiService.patchFAQ(body, id),
   deleteFAQ: (id: number) => apiService.deleteFAQ(id),
   getUsersByModels: (model: string) => apiService.getUsersByModels(model),
-  getCore: () => apiService.getCore(),
+  getCore: (published?: string) => apiService.getCore(published),
   postCore: (core: string) => apiService.postCore(core),
   patchCore: (body: any, id: number) => apiService.patchCore(body, id),
   deleteCore: (id: number) => apiService.deleteCore(id),
@@ -567,7 +575,7 @@ const services = {
   patchTypeOfService: (body: any, id: number) =>
     apiService.patchTypeOfService(body, id),
   deleteTypeOfService: (id: number) => apiService.deleteTypeOfService(id),
-  getUnit: () => apiService.getUnit(),
+  getUnit: (published?: string) => apiService.getUnit(published),
   postUnit: (body: any) => apiService.postUnit(body),
   patchUnit: (body: any, id: number) => apiService.patchUnit(body, id),
   deleteUnit: (id: number) => apiService.deleteUnit(id),
@@ -621,6 +629,7 @@ const services = {
   postQuickAccessButtons: (data: any) => apiService.postQuickAccessButtons(data),
   patchQuickAccessButtons: (data: any, id: number) => apiService.patchQuickAccessButtons(data, id),
   deleteQuickAccessButtons: (id: number) => apiService.deleteQuickAccessButtons(id),
+  getUnityAndCores: (published?: string) => apiService.getUnityAndCores(published),
 };
 
 export default services;
