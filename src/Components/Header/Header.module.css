@@ -14,25 +14,6 @@
   height: 9rem;
 }
 
-.inputButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #3f3f3f;
-  background-color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  height: 30px;
-  width: 50px;
-  font-family: var(--id-font-family);
-  font-weight: 400;
-}
-
-.inputButton:hover {
-  cursor: pointer;
-}
-
 .informations,
 .socialMedia {
   display: flex;
@@ -106,24 +87,27 @@
   color: var(--id-red-color);
   border-radius: 100%;
 }
+
 .dropdown {
   display: none;
   position: absolute;
-  background-color: white;
+  background-color: rgb(250, 250, 250);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 4px;
   min-width: 10rem;
   z-index: 1000;
-  top: 110%;
-  left: 0;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  top: 100%;
+  left: -25%;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.35);
 }
 
 .menuItemWrapper:hover > .dropdown {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 10px;
+  gap: 1.25rem;
+  padding: 15px;
+  min-width: 12rem;
+  width: 100%;
 }
 
 .dropdownClick {
@@ -132,6 +116,7 @@
   gap: 1rem;
   padding: 10px;
 }
+
 .menuItemWrapper {
   position: relative;
 }
@@ -169,17 +154,17 @@
 .menuItemWithIcon::after {
   content: "";
   position: absolute;
-  bottom: -2px;
+  bottom: -1px;
   left: 0;
   width: 100%;
   height: 2px;
   background-color: var(--id-green-color);
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
-.activeAncestor .menuItemWithIcon::after,
+.activeAncestor,
 .menuItemWithIcon:hover,
 .menuItem:hover .menuItemWithIcon::after {
   transform: scaleX(1);
@@ -223,7 +208,7 @@
 }
 
 .sidebar {
-  width: 200px;
+  width: 220px;
   height: 100%;
   background: #2f591c;
   padding: 1rem;
@@ -246,6 +231,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   max-height: 85vh;
+  gap: 1rem;
 }
 
 .sidebarSearch {
@@ -400,6 +386,12 @@
     justify-content: center;
   }
 
+  .headerButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .mobileMenu {
     display: none;
   }
@@ -413,15 +405,14 @@
   }
 
   .dropdownClick {
-    overflow: auto;
-    opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    background-color: rgba(159, 197, 77, 0.1);
-    border-radius: 1rem;
+    display: none;
   }
 
   .dropdownClickOpen {
-    opacity: 1;
+    display: flex;
+    overflow: auto;
+    background-color: rgba(159, 197, 77, 0.2);
+    border-radius: 4px;
   }
 
   .menuItemWithIcon:hover .dropdownIcon {

@@ -21,6 +21,7 @@ import {
   containerForm,
   serviceButtonsForm,
   quickAccessButtonsForm,
+  headerForm,
 } from "./interfaces";
 
 class ApiService {
@@ -534,6 +535,22 @@ async getCategory(ids?: number[]): Promise<categoryForm> {
   async deleteQuickAccessButtons(id: number): Promise<quickAccessButtonsForm>{
     return this.delete<quickAccessButtonsForm>(`/quick-access-buttons/${id}/`)
   }
+
+  async getHeader(): Promise<headerForm>{
+    return this.get<headerForm>(`/header/`)
+  }
+
+  async postHeader(data: any): Promise<headerForm>{
+    return this.post<headerForm>(`/header/`, data)
+  }
+
+  async patchHeader(data: any, id: number): Promise<headerForm>{
+    return this.patch<headerForm>(`/header/${id}/`, data)
+  }
+
+  async deleteHeader(id: number): Promise<headerForm>{
+    return this.delete<headerForm>(`/header/${id}/`)
+  }
 }
 
 const apiService = new ApiService();
@@ -621,6 +638,10 @@ const services = {
   postQuickAccessButtons: (data: any) => apiService.postQuickAccessButtons(data),
   patchQuickAccessButtons: (data: any, id: number) => apiService.patchQuickAccessButtons(data, id),
   deleteQuickAccessButtons: (id: number) => apiService.deleteQuickAccessButtons(id),
+  getHeader: () => apiService.getHeader(),
+  postHeader: (data: any) => apiService.postHeader(data),
+  patchHeader: (data: any, id: number) => apiService.patchHeader(data, id),
+  deleteHeader: (id: number) => apiService.deleteHeader(id),
 };
 
 export default services;

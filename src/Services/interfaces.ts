@@ -221,6 +221,23 @@ interface quickAccessButtonsForm{
   link: string;
 }
 
+interface headerForm{
+  id: number;
+  status: string;
+  background_color: string;
+  name_color: string;
+  structure: any[];
+}
+
+interface MenuItem {
+  uid?: string;
+  name: string;
+  type: string;
+  page?: string;
+  children?: MenuItem[];
+}
+
+
 export type {
   WebsiteInformation,
   SocialMedia,
@@ -247,4 +264,6 @@ export type {
   containerForm,
   serviceButtonsForm,
   quickAccessButtonsForm,
+  headerForm,
+  MenuItem,
 };

@@ -13,14 +13,22 @@ import Input from "../Forms/Input";
 import Button from "../Forms/Button";
 import { Facebook, Instagram, Twitter, Youtube, Linkedin } from "lucide-react";
 import { TextField, InputAdornment, IconButton, Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHeader } from "../../Services/Slices/HeaderSlice";
 
 interface MenuItem {
-  label: string;
-  path: string;
-  children?: MenuItem[];
+  name: string;
+  type: "internal" | "external" | "path";
+  link?: string;
+  page?: string;
+  children: MenuItem[];
 }
 
 function Header() {
+  const data = useSelector((state: any) => state.headerSlice.data);
+  const dataFiltered =
+    data.length > 0 && data[0].structure ? data[0].structure : [];
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [visibleItems, setVisibleItems] = useState<MenuItem[]>([]);
@@ -73,10 +81,14 @@ function Header() {
   };
 
   useEffect(() => {
-    const MAX_ITEMS = menuItems.length <= 7 ? 7 : 5;
+    dispatch<any>(fetchHeader());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const MAX_ITEMS = dataFiltered.length <= 7 ? 7 : 5;
     const MAX_VISIBLE_ITEMS = isResponsive ? 5 : MAX_ITEMS;
-    const visible = menuItems.slice(0, MAX_VISIBLE_ITEMS);
-    const overflow = menuItems.slice(MAX_VISIBLE_ITEMS);
+    const visible = dataFiltered.slice(0, MAX_VISIBLE_ITEMS);
+    const overflow = dataFiltered.slice(MAX_VISIBLE_ITEMS);
     setVisibleItems(visible);
     setOverflowItems(overflow);
     setShowMore(false);
@@ -117,7 +129,8 @@ function Header() {
 
   const renderMenuItems = (
     items: MenuItem[],
-    parentKey = ""
+    parentKey = "",
+    nameColor: string
   ): React.ReactNode => {
     return items.map((item, idx) => {
       const key = parentKey ? `${parentKey}-${idx}` : `${idx}`;
@@ -138,6 +151,7 @@ function Header() {
           toggleDropdown={toggleDropdown}
           renderMenuItems={renderMenuItems}
           customStyles={styles}
+          nameColor={nameColor}
         />
       );
     });
@@ -199,7 +213,10 @@ function Header() {
           </div>
         </div>
       </div>
-      <div className={styles.container}>
+      <div
+        className={styles.container}
+        style={{ background: data?.[0]?.background_color }}
+      >
         <button
           className={styles.mobileMenu}
           id="mobileMenu"
@@ -224,8 +241,10 @@ function Header() {
           id="headerButtons"
           ref={containerRef}
         >
-          {visibleItems.map((item, idx) => (
-            <React.Fragment key={idx}>{renderMenuItems([item])}</React.Fragment>
+          {dataFiltered.map((item: any, idx: any) => (
+            <React.Fragment key={idx}>
+              {renderMenuItems([item], "", data?.[0]?.name_color || "#000")}
+            </React.Fragment>
           ))}
 
           {overflowItems.length > 0 && (
@@ -244,7 +263,7 @@ function Header() {
               </div>
               {showMore && (
                 <div className={styles.dropdown}>
-                  {renderMenuItems(overflowItems)}
+                  {renderMenuItems(overflowItems, "", data?.[0]?.name_color || "" )}
                 </div>
               )}
             </div>
@@ -309,7 +328,7 @@ function Header() {
                 </Box>
               </div>
               <nav className={styles.sidebarNav}>
-                {renderMenuItems(menuItems)}
+                {renderMenuItems(dataFiltered, "", "")}
               </nav>
             </div>
           </div>

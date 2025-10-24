@@ -50,6 +50,5 @@
 @media (max-width: 1500px) {
   .menuItemWrapper {
     flex-direction: column;
-    margin-top: 1rem;
   }
 }
