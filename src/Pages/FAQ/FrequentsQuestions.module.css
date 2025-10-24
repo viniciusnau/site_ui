@@ -6,9 +6,72 @@
   width: 100%;
   margin: 1.5rem 0;
   margin-top: 2rem;
+  padding: 0 1rem; 
+  box-sizing: border-box; 
 }
 
 .faqLimitContainer {
-  width: 80rem;
+  width: 80rem; 
+  max-width: 100%; 
+  box-sizing: border-box; 
 }
 
+@media (max-width: 1000px) {
+  .faqContainer {
+    margin: 1.25rem 0;
+    margin-top: 1.75rem;
+    padding: 0 1.5rem; 
+  }
+  
+  .faqLimitContainer {
+    width: 100%; 
+    padding: 0 0.5rem; 
+  }
+}
+
+@media (max-width: 750px) {
+  .faqContainer {
+    margin: 1rem 0;
+    margin-top: 1.5rem;
+    padding: 0 1rem; 
+  }
+  
+  .faqLimitContainer {
+    width: 100%;
+    padding: 0 0.25rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  .faqContainer {
+    margin: 0.75rem 0;
+    margin-top: 1.25rem;
+    padding: 0 0.75rem; 
+  }
+  
+  .faqLimitContainer {
+    width: 100%;
+    padding: 0; 
+  }
+}
+
+@media (min-width: 1200px) {
+  .faqContainer {
+    padding: 0 2rem; 
+  }
+  
+  .faqLimitContainer {
+    width: 80rem; 
+  }
+}
+
+@media (min-width: 1001px) and (max-width: 1199px) {
+  .faqContainer {
+    padding: 0 1.5rem;
+  }
+  
+  .faqLimitContainer {
+    width: 95%; 
+    max-width: 80rem; 
+  }
+}
