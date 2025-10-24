@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import image from "../../Assets/Defensoria_logo.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Search, ChevronUp, Menu, Ellipsis, X } from "lucide-react";
+import { fetchSocialMedia } from "../../Services/Slices/SocialMediaSlice";
 import { useIsResponsive } from "../Helper";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import { menuItems } from "../Consts";
@@ -21,6 +23,7 @@ interface MenuItem {
 }
 
 function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [visibleItems, setVisibleItems] = useState<MenuItem[]>([]);
@@ -33,6 +36,7 @@ function Header() {
   const [openDropdowns, setOpenDropdowns] = useState<Set<string>>(new Set());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const iconSize = isResponsive ? 28 : 30;
+  const data = useSelector((state: any) => state.socialMedia.data);
   const dataAtual = new Date().toLocaleDateString("pt-BR", {
     weekday: "long",
     year: "numeric",
@@ -45,6 +49,31 @@ function Header() {
   });
 
   const [keywords, setKeywords] = useState<string[]>([]);
+  
+  useEffect(() => {
+    dispatch<any>(fetchSocialMedia());
+  }, [dispatch]);
+
+  const renderSocialIcon = (platform: string, size: number) => {
+    const iconProps = { size };
+    
+    switch(platform.toLowerCase()) {
+      case 'instagram':
+        return <Instagram {...iconProps} />;
+      case 'facebook':
+        return <Facebook {...iconProps} />;
+      case 'twitter':
+      case 'x':
+        return <Twitter {...iconProps} />;
+      case 'youtube':
+        return <Youtube {...iconProps} />;
+      case 'linkedin':
+        return <Linkedin {...iconProps} />;
+      default:
+        console.warn(`Ícone não encontrado para plataforma: ${platform}`);
+        return null;
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.slice(0, 300);
@@ -54,6 +83,7 @@ function Header() {
       setKeywords(filtered);
     }
   };
+
   const toggleDropdown = (key: string) => {
     setOpenDropdowns((prev) => {
       const updated = new Set(prev);
@@ -156,46 +186,22 @@ function Header() {
         </div>
         <div className={styles.inputAndSocialLinksGroup}>
           <div className={styles.socialMedia}>
-            <a
-              href="https://www.instagram.com/defensoriasc/"
-              className={styles.instagram}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Instagram size={iconSize} />
-            </a>
-            <a
-              href="https://www.facebook.com/defensoriasc"
-              className={styles.facebook}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Facebook size={iconSize} />
-            </a>
-            <a
-              href="https://x.com/defensoriaDPESC"
-              target="_blank"
-              className={styles.twitter}
-              rel="noreferrer"
-            >
-              <Twitter size={iconSize} />
-            </a>
-            <a
-              href="https://www.youtube.com/channel/UCsiXdbsU9_EVJlVfq8iNZkQ"
-              className={styles.youtube}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Youtube size={iconSize} />
-            </a>
-            <a
-              href="https://www.linkedin.com/company/defensoria-pública-do-estado-de-santa-catarina/"
-              className={styles.linkedin}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Linkedin size={iconSize} />
-            </a>
+            {Array.isArray(data) && data.length > 0 &&
+              data
+                .filter(social => ['instagram', 'facebook', 'twitter', 'x', 'youtube', 'linkedin']
+                  .includes(social.network.toLowerCase()))
+                .map((social) => (
+                  <a
+                    key={social.id}
+                    href={social.url}
+                    className={styles[social.network.toLowerCase()]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {renderSocialIcon(social.network, iconSize)}
+                  </a>
+                ))
+              }
           </div>
         </div>
       </div>
