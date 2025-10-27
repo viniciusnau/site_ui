@@ -93,7 +93,7 @@ export const {
 export default CoreSlice.reducer;
 
 export const fetchCore =
-  () =>
+  (published?: string) =>
   async (
     dispatch: (arg0: {
       payload: any;

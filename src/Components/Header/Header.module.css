@@ -39,7 +39,7 @@
   color: #1877f2;
 }
 
-.twitter:hover {
+.twitter:hover, .x:hover {
   color: #1da1f2;
 }
 

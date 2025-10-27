@@ -22,6 +22,8 @@ import bannerSlice from "./Slices/BannerSlice";
 import containerSlice from "./Slices/ContainerSlice";
 import serviceButtonsSlice from "./Slices/ServiceButtonsSlice";
 import quickAccessButtonsSlice from "./Slices/QuickAccessButtonsSlice";
+import CoresAndUnitsSlice from './Slices/CoresAndUnitsSlice';
+import pagesSlice from "./Slices/PagesSlice";
 import headerSlice from "./Slices/HeaderSlice";
 
 
@@ -49,6 +51,8 @@ const reducer = combineReducers({
   containerSlice,
   serviceButtonsSlice,
   quickAccessButtonsSlice,
+  CoresAndUnitsSlice,
+  pagesSlice,
   headerSlice,
 });
 
