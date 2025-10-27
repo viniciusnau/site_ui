@@ -1,221 +1,166 @@
+import React, { useEffect, useState } from "react";
 import Table from "../../../Components/Table/Table";
-import style from "./Pages.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import Snackbar from "../../../Components/Snackbar/Snackbar";
+import PagesModal from "../../../Components/ModalTabs/PagesModal";
+import {
+    fetchPages,
+    patchPage,
+    postPage,
+    removePage,
+} from "../../../Services/Slices/PagesSlice";
 import {
     TableColumn,
     ActionsColumnConfig,
     CreateButtonConfig,
-    BooleanColumnConfig,
 } from "../../../types/tableTypes";
-import React, { useEffect, useState } from "react";
-import Snackbar from "../../../Components/Snackbar/Snackbar";
-import { useDispatch, useSelector } from "react-redux";
-import { posters } from "../../../Components/TableInterfaces";
-import {
-    fetchPosters,
-    patchPosters,
-    postPosters,
-    removePosters,
-} from "../../../Services/Slices/PostersSlice";
-import { postersForm } from "../../../Services/interfaces";
-import PostersModal from "../../../Components/ModalTabs/PostersModal";
-import DOMPurify from "dompurify";
+import style from "../Posters/Posters.module.css";
 
 function Pages() {
+    const dispatch = useDispatch<any>();
+    const data = useSelector((state: any) => state.pagesSlice.data);
+
+    const [form, setForm] = useState({
+        title: "",
+        text: "",
+        has_faq: false,
+        has_news: false,
+        has_posters: false,
+        has_cores: false,
+    });
+    const [selectedItem, setSelectedItem] = useState<any>(null);
+    const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [errors, setErrors] = useState({ title: false });
+    const [editedHTML, setEditedHTML] = useState("");
     const [snackbarType, setSnackbarType] = useState<string | null>(null);
     const [snackbarMessage, setSnackbarMessage] = useState<string>("");
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
-    const [selectedItem, setSelectedItem] = useState<posters | null>(null);
-    const data = useSelector((state: any) => state.postersSlice.data);
-    const dispatch = useDispatch();
-    const [errors, setErrors] = useState({
-        title: false,
-        image: false,
-        attachment: false,
-    });
-    const initialForm: postersForm = {
-        title: "",
-        status: "not_published",
-        description: "",
-        image: null,
-        attachment: null,
-        slug: "",
-    };
-    const [form, setForm] = useState<postersForm>(initialForm);
-
-    const resetForm = (custom?: Partial<postersForm>) => {
-        setForm({ ...initialForm, ...custom });
-    };
 
     useEffect(() => {
-        dispatch<any>(fetchPosters());
+        dispatch(fetchPages());
     }, [dispatch]);
 
-    const handleChange = (value: string, type: string) => {
-        setForm((prev) => ({
-            ...prev,
-            [type]: DOMPurify.sanitize(value),
-        }));
+    const resetForm = () => {
+        setForm({
+            title: "",
+            text: "",
+            has_faq: false,
+            has_news: false,
+            has_posters: false,
+            has_cores: false,
+        });
+        setEditedHTML("");
+        setErrors({ title: false });
     };
 
-    const handleDelete = async (postersItem: any) => {
-        try {
-            await dispatch<any>(removePosters(postersItem.id));
-            setSnackbarType("deleteSuccess");
-            setSnackbarMessage("");
-        } catch (err: any) {
-            console.error("Erro ao deletar:", err);
-            setSnackbarType("deleteError");
-            setSnackbarMessage(err);
-        }
-    };
-
-    const handleClose = () => {
+    const handleCloseModal = () => {
         resetForm();
-        setIsCreateModalOpen(false);
-        setIsEditModalOpen(false);
+        setIsModalOpen(false);
+        setSelectedItem(null);
     };
 
-    const handleSubmit = async (form: postersForm, id?: number) => {
-        const newErrors = {
-            title: !form.title.trim(),
-            image: !form.image,
-            attachment: !form.attachment,
-        };
+    const handleChange = (value: any, key: string) => {
+        setForm((prev) => ({ ...prev, [key]: value }));
+        if (key === "text") setEditedHTML(value);
+    };
 
-        setErrors(newErrors);
-        if (Object.values(newErrors).some((e) => e)) return;
-
-        const formData = new FormData();
-        formData.append("status", form.status);
-        formData.append("title", form.title);
-        formData.append("description", form.description);
-
-        if (form.image instanceof File) {
-            formData.append("image", form.image);
-        }
-        if (form.attachment instanceof File) {
-            formData.append("attachment", form.attachment);
-        }
-
+    const handleSubmit = async () => {
         try {
+            if (!form.title.trim()) {
+                setErrors((prev) => ({ ...prev, title: true }));
+                return;
+            }
+
+            const formData = new FormData();
+            Object.entries(form).forEach(([key, value]) =>
+                formData.append(key, String(value))
+            );
+
             let response;
-            if (id) {
-                response = await dispatch<any>(patchPosters(formData, id));
+            if (modalMode === "edit" && selectedItem) {
+                response = await dispatch(patchPage(formData, selectedItem.id));
             } else {
-                response = await dispatch<any>(postPosters(formData));
+                response = await dispatch(postPage(formData));
             }
 
             if (response?.error || response?.status >= 400) {
-                throw new Error("Erro ao salvar cartilha");
+                throw new Error("Erro ao salvar página");
             }
 
-            await dispatch<any>(fetchPosters());
+            await dispatch(fetchPages());
 
-            if (id) {
+            if (modalMode === "edit") {
                 setSnackbarType("patchSuccess");
-                setSnackbarMessage("");
-                setIsEditModalOpen(false);
+                setSnackbarMessage("Página atualizada com sucesso!");
             } else {
                 setSnackbarType("postSuccess");
-                setSnackbarMessage("");
-                handleClose();
+                setSnackbarMessage("Página criada com sucesso!");
             }
-        } catch (err: any) {
-            console.error("Erro ao enviar cartilha:", err);
-            const errorMessage = err;
 
-            if (id) {
+            handleCloseModal();
+        } catch (err: any) {
+            console.error("Erro ao enviar página:", err);
+            const errorMessage =
+                err?.message || "Ocorreu um erro ao processar a requisição.";
+
+            if (modalMode === "edit") {
                 setSnackbarType("patchError");
                 setSnackbarMessage(errorMessage);
-                setIsEditModalOpen(false);
             } else {
                 setSnackbarType("postError");
                 setSnackbarMessage(errorMessage);
-                handleClose();
             }
+
+            handleCloseModal();
         }
     };
 
-    const booleanConfig: BooleanColumnConfig<posters> = {
-        enabled: true,
-        header: "Status",
-        field: "status",
-        checkValue: "published",
-        xValue: "not_published",
-        scheduledValue: "scheduled",
-        width: "50px",
-        sortable: false,
+    const handleDelete = async (item: any) => {
+        try {
+            await dispatch(removePage(item.id));
+            await dispatch(fetchPages());
+            setSnackbarType("deleteSuccess");
+            setSnackbarMessage("Página excluída com sucesso!");
+        } catch (err: any) {
+            console.error("Erro ao excluir página:", err);
+            setSnackbarType("deleteError");
+            setSnackbarMessage("Erro ao excluir página.");
+        }
     };
 
-    const createTag: CreateButtonConfig = {
-        text: "Criar nova Cartilha",
-        onClick: () => {
-            setErrors({ title: false, image: false, attachment: false });
-            resetForm();
-            setIsCreateModalOpen(true);
-        },
-    };
-
-    const genericFiltersConfig = [
-        {
-            enabled: true,
-            label: "Status",
-            column: "status" as keyof posters,
-            options: { published: "Publicado", not_published: "Não publicado" },
-            width: "200px",
-            multiple: false,
-        },
+    const columns: TableColumn<any>[] = [
+        { key: "title", header: "Título", sortable: true },
     ];
 
-    const columns: TableColumn<posters>[] = [
-        {
-            key: "title",
-            header: "Título",
-            sortable: true,
-            width: "150px",
-        },
-    ];
-
-    const ActionsConfig: ActionsColumnConfig<posters> = {
+    const actions: ActionsColumnConfig<any> = {
         enabled: true,
         header: "Ações",
         width: "150px",
-        permissions: {
-            canView: true,
-            canEdit: true,
-            canDelete: true,
-            canCreate: true,
-        },
-        view: {
-            enabled: true,
-            onClick: (item) => {
-                window.open(`/servicos/cartilhas-e-revista/${item.slug}`, "_blank");
-            },
-        },
-
+        permissions: { canEdit: true, canDelete: true, canCreate: true },
         edit: {
             onClick: (item) => {
-                setErrors({ title: false, image: false, attachment: false });
                 setSelectedItem(item);
-                resetForm({
-                    status: item.status || "",
-                    title: item.title || "",
-                    description: item.description || "",
-                    image: item.image || null,
-                    attachment: item.attachment || null,
-                });
-                setIsEditModalOpen(true);
+                setForm(item);
+                setEditedHTML(item.text || "");
+                setModalMode("edit");
+                setIsModalOpen(true);
             },
         },
-
         delete: {
-            confirmMessage: `Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.`,
-            onClick: (item) => {
-                handleDelete(item);
-            },
+            confirmMessage: "Tem certeza que deseja excluir esta página?",
+            onClick: handleDelete,
         },
     };
+
+    const createButton: CreateButtonConfig = {
+        text: "Criar nova Página",
+        onClick: () => {
+            resetForm();
+            setModalMode("create");
+            setIsModalOpen(true);
+        },
+    };
+
     return (
         <>
             {snackbarType === "noneChange" && (
@@ -267,19 +212,18 @@ function Pages() {
                     customMessage={snackbarMessage}
                 />
             )}
-            <PostersModal
-                isOpen={isCreateModalOpen || isEditModalOpen}
-                onClose={handleClose}
-                title={isCreateModalOpen ? "Criar Cartilha" : "Editar Cartilha"}
+
+            <PagesModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                title={modalMode === "create" ? "Criar Página" : "Editar Página"}
                 form={form}
-                editedHTML={form.description}
-                setForm={setForm}
-                onSubmit={() =>
-                    handleSubmit(form, isEditModalOpen ? selectedItem?.id : undefined)
-                }
+                editedHTML={editedHTML}
                 errors={errors}
                 setErrors={setErrors}
-                mode={isCreateModalOpen ? "create" : "edit"}
+                setForm={setForm}
+                onSubmit={handleSubmit}
+                mode={modalMode}
                 handleChange={handleChange}
                 customStyles={style}
             />
@@ -287,10 +231,8 @@ function Pages() {
             <Table
                 data={data}
                 columns={columns}
-                genericFilters={genericFiltersConfig}
-                actionsColumn={ActionsConfig}
-                booleanColumn={booleanConfig}
-                createButton={createTag}
+                actionsColumn={actions}
+                createButton={createButton}
                 searchable
                 sortable
                 pagination

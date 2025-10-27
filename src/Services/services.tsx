@@ -542,6 +542,26 @@ async getCategory(ids?: number[]): Promise<categoryForm> {
     const query = published ? `?published=${published}` : ""; 
     return this.get<UnityAndCores>(`/cores-units/${query}`);
   }
+
+  async getPages(): Promise<any> {
+    return this.get<any>(`/page/`, true);
+  }
+
+  async getPageById(id: number): Promise<any> {
+    return this.get<any>(`/page/${id}/`, true);
+  }
+
+  async postPage(body: any): Promise<any> {
+    return this.post<any>(`/page/`, body, true);
+  }
+
+  async patchPage(body: any, id: number): Promise<any> {
+    return this.patch<any>(`/page/${id}/`, body, true);
+  }
+
+  async deletePage(id: number): Promise<any> {
+    return this.delete<any>(`/page/${id}/`, true);
+  }
 }
 
 const apiService = new ApiService();
@@ -630,6 +650,11 @@ const services = {
   patchQuickAccessButtons: (data: any, id: number) => apiService.patchQuickAccessButtons(data, id),
   deleteQuickAccessButtons: (id: number) => apiService.deleteQuickAccessButtons(id),
   getUnityAndCores: (published?: string) => apiService.getUnityAndCores(published),
+  getPages: () => apiService.getPages(),
+  getPageById: (id: number) => apiService.getPageById(id),
+  postPage: (body: any) => apiService.postPage(body),
+  patchPage: (body: any, id: number) => apiService.patchPage(body, id),
+  deletePage: (id: number) => apiService.deletePage(id)
 };
 
 export default services;
