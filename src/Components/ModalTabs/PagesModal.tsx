@@ -65,7 +65,7 @@ const PagesModal = ({
 
     const cards = useSelector((state: any) => state.cardsSlice.data || []);
     const categories = useSelector((state: any) => state.categorySlice.data || []);
-    const users = useSelector((state: any) => state.profilesSlice.results || []);
+    const users = useSelector((state: any) => state.profilesSlice.data || []);
 
     const getClass = (base: string) => (customStyles[base] || "").trim();
 
@@ -77,7 +77,7 @@ const PagesModal = ({
         }
     }, [isOpen, dispatch]);
 
-    const handleSelect = (e: SelectChangeEvent<string>, field: string) => {
+    const handleSelect = (e: SelectChangeEvent, field: string) => {
         setForm((prev) => ({ ...prev, [field]: e.target.value }));
     };
 
@@ -206,14 +206,14 @@ const PagesModal = ({
                                         onChange={handleUsersChange}
                                         renderValue={(selected) =>
                                             users
-                                                .filter((u: any) => (selected as number[]).includes(u.id))
+                                                .filter((u: any) => (selected as number[]).includes(u.pk))
                                                 .map((u: any) => u.username || u.name)
                                                 .join(", ")
                                         }
                                     >
                                         {users.map((user: any) => (
-                                            <MenuItem key={user.id} value={user.id}>
-                                                <Checkbox checked={form.allowed_users.includes(user.id)} />
+                                            <MenuItem key={user.pk} value={user.pk}>
+                                                <Checkbox checked={form.allowed_users.includes(user.pk)} />
                                                 <ListItemText primary={user.username || user.name} />
                                             </MenuItem>
                                         ))}
