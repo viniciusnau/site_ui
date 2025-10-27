@@ -53,7 +53,6 @@ function Header() {
   });
 
   const [keywords, setKeywords] = useState<string[]>([]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.slice(0, 300);
 
@@ -85,14 +84,14 @@ function Header() {
   }, [dispatch]);
 
   useEffect(() => {
-    const MAX_ITEMS = dataFiltered.length <= 7 ? 7 : 5;
-    const MAX_VISIBLE_ITEMS = isResponsive ? 5 : MAX_ITEMS;
+    const MAX_ITEMS = dataFiltered.length <= 7 ? 7 : 6;
+    const MAX_VISIBLE_ITEMS = isResponsive ? 6 : MAX_ITEMS;
     const visible = dataFiltered.slice(0, MAX_VISIBLE_ITEMS);
     const overflow = dataFiltered.slice(MAX_VISIBLE_ITEMS);
     setVisibleItems(visible);
     setOverflowItems(overflow);
     setShowMore(false);
-  }, [menuItems, isResponsive]);
+  }, [isResponsive, dataFiltered]);
 
   useEffect(() => {
     if (!sidebarOpen) {
@@ -127,35 +126,35 @@ function Header() {
     );
   };
 
-  const renderMenuItems = (
-    items: MenuItem[],
-    parentKey = "",
-    nameColor: string
-  ): React.ReactNode => {
-    return items.map((item, idx) => {
-      const key = parentKey ? `${parentKey}-${idx}` : `${idx}`;
-      const isOpen = openDropdowns.has(key);
-      const isDesktop = !isMobile;
-      const isActiveAncestor = Array.from(openDropdowns).some(
-        (openKey) => openKey === key || openKey.startsWith(`${key}-`)
-      );
+const renderMenuItems = (
+  items: MenuItem[],
+  parentKey = "",
+  nameColor: string,
+): React.ReactNode => {
+  return items.map((item, idx) => {
+    const key = parentKey ? `${parentKey}-${idx}` : `${idx}`;
+    const isOpen = openDropdowns.has(key);
+    const isDesktop = !isMobile;
+    const isActiveAncestor = Array.from(openDropdowns).some(
+      (openKey) => openKey === key || openKey.startsWith(`${key}-`)
+    );
 
-      return (
-        <DropdownItem
-          key={key}
-          item={item}
-          keyPath={key}
-          isOpen={isOpen}
-          isActiveAncestor={isActiveAncestor}
-          isDesktop={isDesktop}
-          toggleDropdown={toggleDropdown}
-          renderMenuItems={renderMenuItems}
-          customStyles={styles}
-          nameColor={nameColor}
-        />
-      );
-    });
-  };
+    return (
+      <DropdownItem
+        key={key}
+        item={item}
+        keyPath={key}
+        isOpen={isOpen}
+        isActiveAncestor={isActiveAncestor}
+        isDesktop={isDesktop}
+        toggleDropdown={toggleDropdown}
+        renderMenuItems={renderMenuItems}
+        customStyles={styles}
+        nameColor={nameColor}
+      />
+    );
+  });
+};
 
   return (
     <header className={`${styles.header} ${styles[pageClass]}`}>
@@ -241,7 +240,7 @@ function Header() {
           id="headerButtons"
           ref={containerRef}
         >
-          {dataFiltered.map((item: any, idx: any) => (
+          {visibleItems.map((item: any, idx: any) => (
             <React.Fragment key={idx}>
               {renderMenuItems([item], "", data?.[0]?.name_color || "#000")}
             </React.Fragment>
@@ -252,18 +251,19 @@ function Header() {
               className={styles.menuItemWrapper}
               onMouseEnter={() => setShowMore(!showMore)}
             >
-              <div className={`${styles.menuItem} ${styles.menuItemWrapper}`}>
-                <div
-                  className={`${styles.menuItem} ${styles.menuItemWithIcon}`}
-                >
-                  <Ellipsis />
+              <div className={`${styles.menuItem} `}>
+                <div className={`${styles.menuItemWithIcon}`}>
                   Ver mais
                   <ChevronUp size={16} className={styles.dropdownIcon} />
                 </div>
               </div>
               {showMore && (
-                <div className={styles.dropdown}>
-                  {renderMenuItems(overflowItems, "", data?.[0]?.name_color || "" )}
+                <div className={`${styles.dropdown}`}>
+                  {renderMenuItems(
+                    overflowItems,
+                    "",
+                    data?.[0]?.name_color || ""
+                  )}
                 </div>
               )}
             </div>
