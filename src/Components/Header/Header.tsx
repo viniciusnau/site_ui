@@ -63,6 +63,7 @@ function Header() {
       case 'facebook':
         return <Facebook {...iconProps} />;
       case 'twitter':
+        return <Twitter {...iconProps} />;
       case 'x':
         return <Twitter {...iconProps} />;
       case 'youtube':

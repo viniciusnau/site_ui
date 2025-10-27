@@ -20,8 +20,6 @@ function LinksParaRedesSociais() {
     instagram: { id: null, url: "" },
     youtube: { id: null, url: "" },
     linkedin: { id: null, url: "" },
-    pinterest: { id: null, url: "" },
-    vimeo: { id: null, url: "" },
   });
 
   const mapDataToForm = (data: any[]) => {
@@ -31,8 +29,6 @@ function LinksParaRedesSociais() {
       instagram: { id: null, url: "" },
       youtube: { id: null, url: "" },
       linkedin: { id: null, url: "" },
-      pinterest: { id: null, url: "" },
-      vimeo: { id: null, url: "" },
     };
     
     if (data && Array.isArray(data)) {
@@ -224,38 +220,6 @@ function LinksParaRedesSociais() {
               value={form.linkedin?.url || ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleChange(e.target.value, "linkedin")
-              }
-            />
-          </div>
-          
-          <div className={style.inputGroup}>
-            <div className={style.titleContainer}>
-              <p className={style.title}>Pinterest:</p>
-            </div>
-            <Input
-              className={style.input}
-              placeholder="Digite a URL do Pinterest"
-              max={255}
-              type="text"
-              value={form.pinterest?.url || ""}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange(e.target.value, "pinterest")
-              }
-            />
-          </div>
-          
-          <div className={style.inputGroup}>
-            <div className={style.titleContainer}>
-              <p className={style.title}>Vimeo:</p>
-            </div>
-            <Input
-              className={style.input}
-              placeholder="Digite a URL do Vimeo"
-              max={255}
-              type="text"
-              value={form.vimeo?.url || ""}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange(e.target.value, "vimeo")
               }
             />
           </div>

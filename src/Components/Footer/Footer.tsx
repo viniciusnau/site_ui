@@ -1,5 +1,8 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Footer.module.css";
+import { fetchSocialMedia } from "../../Services/Slices/SocialMediaSlice";
 import image from "../../Assets/Defensoria_logo.png";
 import { useIsResponsive } from "../Helper";
 import { 
@@ -14,7 +17,35 @@ import {
 const Footer = () => {
   const isResponsive = useIsResponsive(900)
   const iconSize = isResponsive ? 28 : 38;
+  const data = useSelector((state: any) => state.socialMedia.data);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const renderSocialIcon = (platform: string, size: number) => {
+      const iconProps = { size };
+      
+      switch(platform.toLowerCase()) {
+        case 'instagram':
+          return <Instagram {...iconProps} />;
+        case 'facebook':
+          return <Facebook {...iconProps} />;
+        case 'twitter':
+          return <Twitter {...iconProps} />;
+        case 'x':
+          return <Twitter {...iconProps} />;
+        case 'youtube':
+          return <Youtube {...iconProps} />;
+        case 'linkedin':
+          return <Linkedin {...iconProps} />;
+        default:
+          console.warn(`Ícone não encontrado para plataforma: ${platform}`);
+          return null;
+      }
+    };
+
+  useEffect(() => {
+      dispatch<any>(fetchSocialMedia());
+    }, [dispatch]);
 
   return (
     <footer className={styles.footer}  id="footer">
@@ -40,41 +71,22 @@ const Footer = () => {
         </div>
           <div className={styles.infoContainer}>
             <div className={styles.socialMedia}>
-              <a
-                href="https://www.instagram.com/defensoriasc/"
-                className={styles.instagram}
-                target="_blank" rel="noreferrer"
-              >
-                <Instagram size={iconSize}/>
-              </a>
-              <a
-                href="https://www.facebook.com/defensoriasc"
-                className={styles.facebook}
-                target="_blank" rel="noreferrer"
-              >
-                <Facebook size={iconSize}/>
-              </a>
-              <a
-                href="https://x.com/defensoriaDPESC"
-                target="_blank"
-                className={styles.twitter} rel="noreferrer"
-              >
-                <Twitter size={iconSize}/>
-              </a>
-              <a
-                href="https://www.youtube.com/channel/UCsiXdbsU9_EVJlVfq8iNZkQ"
-                className={styles.youtube}
-                target="_blank" rel="noreferrer"
-              >
-                <Youtube size={iconSize}/>
-              </a>
-              <a
-                href="https://www.linkedin.com/company/defensoria-pública-do-estado-de-santa-catarina/"
-                className={styles.linkedin}
-                target="_blank" rel="noreferrer"
-              >
-                <Linkedin size={iconSize}/>
-              </a>
+              {Array.isArray(data) && data.length > 0 &&
+                data
+                  .filter(social => ['instagram', 'facebook', 'twitter', 'x', 'youtube', 'linkedin']
+                  .includes(social.network.toLowerCase()))
+                  .map((social) => (
+                  <a
+                    key={social.id}
+                    href={social.url}
+                    className={styles[social.network.toLowerCase()]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {renderSocialIcon(social.network, iconSize)}
+                  </a>
+                ))
+              }
             </div>
             <div className={styles.line}></div>
             <ul className={styles.informations}>
