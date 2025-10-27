@@ -256,7 +256,7 @@ const renderMenuItems = (
               onMouseEnter={() => setShowMore(!showMore)}
             >
               <div className={`${styles.menuItem} `}>
-                <div className={`${styles.menuItemWithIcon}`}>
+                <div className={`${styles.menuItemWithIcon}`} style={{color: headerData?.[0]?.name_color}}>
                   Ver mais
                   <ChevronUp size={16} className={styles.dropdownIcon} />
                 </div>
