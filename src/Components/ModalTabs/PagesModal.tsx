@@ -16,6 +16,7 @@ import { SelectChangeEvent } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {fetchCards} from "../../Services/Slices/CardsSlice";
 import {fetchCategory} from "../../Services/Slices/CategorySlice";
+import {fetchProfiles} from "../../Services/Slices/ProfilesSlice";
 
 interface PageForm {
     card: string;
@@ -62,9 +63,9 @@ const PagesModal = ({
                     }: PagesModalProps) => {
     const dispatch = useDispatch();
 
-    const cards = useSelector((state: any) => state.cards?.data || []);
-    const categories = useSelector((state: any) => state.category?.data || []);
-    const users = useSelector((state: any) => state.users?.data || []);
+    const cards = useSelector((state: any) => state.cardsSlice.data || []);
+    const categories = useSelector((state: any) => state.categorySlice.data || []);
+    const users = useSelector((state: any) => state.profilesSlice.results || []);
 
     const getClass = (base: string) => (customStyles[base] || "").trim();
 
@@ -72,7 +73,7 @@ const PagesModal = ({
         if (isOpen) {
             dispatch<any>(fetchCards());
             dispatch<any>(fetchCategory());
-            // dispatch(fetchUsers());
+            dispatch<any>(fetchProfiles());
         }
     }, [isOpen, dispatch]);
 
@@ -187,7 +188,7 @@ const PagesModal = ({
                                         </MenuItem>
                                         {categories.map((item: any) => (
                                             <MenuItem key={item.id} value={item.id.toString()}>
-                                                {item.name}
+                                                {item.title}
                                             </MenuItem>
                                         ))}
                                     </Select>

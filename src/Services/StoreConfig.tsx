@@ -24,6 +24,7 @@ import serviceButtonsSlice from "./Slices/ServiceButtonsSlice";
 import quickAccessButtonsSlice from "./Slices/QuickAccessButtonsSlice";
 import CoresAndUnitsSlice from './Slices/CoresAndUnitsSlice';
 import pagesSlice from "./Slices/PagesSlice";
+import profilesSlice from "./Slices/ProfilesSlice";
 
 const reducer = combineReducers({
   a11ySlice,
@@ -44,6 +45,7 @@ const reducer = combineReducers({
   recordsSlice,
   cardsSlice,
   meSlice,
+  profilesSlice,
   cardRegisterSlice,
   bannerSlice,
   containerSlice,
