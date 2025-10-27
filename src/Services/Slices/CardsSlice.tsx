@@ -31,7 +31,7 @@ const CardsSlice = createSlice({
     getCardsFailure: (state, action) => {
       state.error = true;
       state.loading = false;
-      state.msgError = action.payload || "Erro ao carregar cards";
+      state.msgError = action.payload || "Erro ao carregar coleção";
     },
     updateCards: (state) => {
       state.error = false;

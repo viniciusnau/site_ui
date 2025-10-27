@@ -8,7 +8,7 @@ function MainCards() {
     const tabs = [
     {
       id: "cards",
-      label: "Cards",
+      label: "Coleções",
       content: <Cards />,
     },
     {
