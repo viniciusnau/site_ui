@@ -154,16 +154,16 @@ const PagesModal = ({
                             </div>
 
                             <div className={getClass("field")}>
-                                <label className={getClass("label")}>Card:</label>
+                                <label className={getClass("label")}>Coleção:</label>
                                 <FormControl fullWidth>
-                                    <InputLabel id="card">Card</InputLabel>
+                                    <InputLabel id="card">Coleção</InputLabel>
                                     <Select
                                         labelId="card"
                                         value={form.card || ""}
                                         onChange={(e) => handleSelect(e, "card")}
                                     >
                                         <MenuItem value="">
-                                            <em>Selecione um card</em>
+                                            <em>Selecione uma coleção</em>
                                         </MenuItem>
                                         {cards.map((item: any) => (
                                             <MenuItem key={item.id} value={item.id.toString()}>
