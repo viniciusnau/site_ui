@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import image from "../../Assets/Defensoria_logo.png";
 import { useNavigate } from "react-router-dom";
-import { Search, ChevronUp, Menu, Ellipsis, X } from "lucide-react";
+import { Search, ChevronUp, Menu, X } from "lucide-react";
 import { fetchSocialMedia } from "../../Services/Slices/SocialMediaSlice";
 import { useIsResponsive } from "../Helper";
 import DropdownItem from "../DropdownItem/DropdownItem";
-import { menuItems } from "../Consts";
 import { useLastPathSegment } from "../Helper";
 import Modal from "../Modal/Modal";
 import styles from "./Header.module.css";
@@ -27,7 +26,7 @@ interface MenuItem {
 
 function Header() {
   const headerData = useSelector((state: any) => state.headerSlice.data);
-  const dataFiltered =
+  const headerDataFiltered =
     headerData.length > 0 && headerData[0].structure ? headerData[0].structure : [];
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -113,14 +112,14 @@ function Header() {
   }, [dispatch]);
 
   useEffect(() => {
-    const MAX_ITEMS = dataFiltered.length <= 7 ? 7 : 6;
+    const MAX_ITEMS = headerDataFiltered.length <= 7 ? 7 : 6;
     const MAX_VISIBLE_ITEMS = isResponsive ? 6 : MAX_ITEMS;
-    const visible = dataFiltered.slice(0, MAX_VISIBLE_ITEMS);
-    const overflow = dataFiltered.slice(MAX_VISIBLE_ITEMS);
+    const visible = headerDataFiltered.slice(0, MAX_VISIBLE_ITEMS);
+    const overflow = headerDataFiltered.slice(MAX_VISIBLE_ITEMS);
     setVisibleItems(visible);
     setOverflowItems(overflow);
     setShowMore(false);
-  }, [isResponsive, dataFiltered]);
+  }, [isResponsive, headerDataFiltered]);
 
   useEffect(() => {
     if (!sidebarOpen) {
@@ -219,7 +218,7 @@ const renderMenuItems = (
       </div>
       <div
         className={styles.container}
-        style={{ background: data?.[0]?.background_color }}
+        style={{ background: headerData?.[0]?.background_color }}
       >
         <button
           className={styles.mobileMenu}
@@ -247,7 +246,7 @@ const renderMenuItems = (
         >
           {visibleItems.map((item: any, idx: any) => (
             <React.Fragment key={idx}>
-              {renderMenuItems([item], "", data?.[0]?.name_color || "#000")}
+              {renderMenuItems([item], "", headerData?.[0]?.name_color || "#000")}
             </React.Fragment>
           ))}
 
@@ -267,7 +266,7 @@ const renderMenuItems = (
                   {renderMenuItems(
                     overflowItems,
                     "",
-                    data?.[0]?.name_color || ""
+                    headerData?.[0]?.name_color || ""
                   )}
                 </div>
               )}
@@ -333,7 +332,7 @@ const renderMenuItems = (
                 </Box>
               </div>
               <nav className={styles.sidebarNav}>
-                {renderMenuItems(dataFiltered, "", "")}
+                {renderMenuItems(headerDataFiltered, "", "")}
               </nav>
             </div>
           </div>
