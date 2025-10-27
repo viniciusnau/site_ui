@@ -98,7 +98,7 @@ function HeaderAdmin({children}: HeaderAdminProps) {
                   <List size={iconSize}/>
                 </div>
               </li>
-              <li className={style.menuList} onClick={() => handleMenuClick("Coleções", "/admin/cards") }>
+              <li className={style.menuList} onClick={() => handleMenuClick("Coleções", "/admin/colecoes") }>
                 <div className={style.buttonIcon}>
                   <p>Coleções</p>
                   <Server size={iconSize}/>

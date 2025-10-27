@@ -132,13 +132,13 @@ const CardRegisterModal = ({
               <fieldset className={getClass("category")}>
                 <legend>Dados do Cadastro</legend>
                 <div className={getClass("field")}>
-                  <label className={getClass("label")}>Título do Card:</label>
+                  <label className={getClass("label")}>Título do Registro:</label>
                   <input
                       className={`${getClass("input")} ${
                           errors.title ? getClass("inputError") : ""
                       }`}
                       value={form.title}
-                      placeholder="Digite o título do Card"
+                      placeholder="Digite o título do Registro"
                       maxLength={150}
                       onChange={(e) => {
                         handleChange(e.target.value, "title");
@@ -210,21 +210,21 @@ const CardRegisterModal = ({
               </fieldset>
 
               <fieldset className={getClass("category")}>
-                <legend>Selecionar Card</legend>
+                <legend>Selecionar Coleção</legend>
                 <div className={getClass("field")}>
-                  <label className={getClass("label")}>Escolha um card:</label>
+                  <label className={getClass("label")}>Escolha uma coleção:</label>
                   <FormControl fullWidth className={getClass("mui")}>
-                    <InputLabel id="card-select-label">Card</InputLabel>
+                    <InputLabel id="card-select-label">Coleção</InputLabel>
                     <Select
                         labelId="card-select-label"
                         value={form.card || ""}
-                        label="Card"
+                        label="Coleção"
                         onChange={(e: SelectChangeEvent<string | number>) =>
                             handleChange(e.target.value, "card")
                         }
                     >
                       <MenuItem value="" disabled>
-                        Selecione um card
+                        Selecione uma coleção
                       </MenuItem>
                       {cards
                           .filter((item: any) => item.status === "published")

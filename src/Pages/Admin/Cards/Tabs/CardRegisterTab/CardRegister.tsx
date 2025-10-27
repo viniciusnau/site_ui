@@ -57,7 +57,7 @@ function CardRegister() {
   };
 
   const createCardRegister: CreateButtonConfig = {
-    text: "Criar novo card",
+    text: "Criar novo registro",
     onClick: () => {
       setErrors({ title: false, image: false, text: false });
       resetForm();
@@ -144,7 +144,7 @@ function CardRegister() {
         handleClose();
       }
     } catch (err: any) {
-      console.error("Erro ao enviar registro de card:", err);
+      console.error("Erro ao enviar registro:", err);
       const errorMessage = err;
 
       if (id) {
@@ -168,7 +168,7 @@ function CardRegister() {
     },
     {
       key: "card_detail.title",
-      header: "Card",
+      header: "Coleção",
       sortable: false,
       width: "300px",
     },
@@ -281,7 +281,7 @@ function CardRegister() {
           <CardRegisterModal
               isOpen={isCreateModalOpen || isEditModalOpen}
               onClose={handleClose}
-              title={isCreateModalOpen ? "Criar Card" : "Editar Card"}
+              title={isCreateModalOpen ? "Criar Registro" : "Editar Registro"}
               form={form}
               setForm={setForm}
               onSubmit={() =>

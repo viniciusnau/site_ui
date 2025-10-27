@@ -290,9 +290,9 @@ function RouterContent({
                   }
               ></Route>
               <Route
-                  path="/admin/cards"
+                  path="/admin/colecoes"
                   element={
-                    <ProtectedRoute Component={MainCards} path="/admin/cards" />
+                    <ProtectedRoute Component={MainCards} path="/admin/colecoes" />
                   }
               ></Route>
               <Route
