@@ -16,17 +16,33 @@ import {
 } from "../../../types/tableTypes";
 import style from "../Posters/Posters.module.css";
 
+
+interface PageForm {
+    card: string;
+    category: string;
+    allowed_users: number[];
+    title: string;
+    text: string;
+    has_faq: boolean;
+    has_news: boolean;
+    has_posters: boolean;
+    has_cores: boolean;
+}
+
 function Pages() {
     const dispatch = useDispatch<any>();
     const data = useSelector((state: any) => state.pagesSlice.data);
 
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<PageForm>({
         title: "",
         text: "",
         has_faq: false,
         has_news: false,
         has_posters: false,
         has_cores: false,
+        card: "",
+        category: "",
+        allowed_users: [],
     });
     const [selectedItem, setSelectedItem] = useState<any>(null);
     const [modalMode, setModalMode] = useState<"create" | "edit">("create");
@@ -48,6 +64,9 @@ function Pages() {
             has_news: false,
             has_posters: false,
             has_cores: false,
+            card: "",
+            category: "",
+            allowed_users: [],
         });
         setEditedHTML("");
         setErrors({ title: false });
@@ -60,7 +79,7 @@ function Pages() {
     };
 
     const handleChange = (value: any, key: string) => {
-        setForm((prev) => ({ ...prev, [key]: value }));
+        setForm((prev: any) => ({ ...prev, [key]: value }));
         if (key === "text") setEditedHTML(value);
     };
 
