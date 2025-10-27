@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Modal from "../Modal/Modal";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
@@ -13,6 +13,9 @@ import {
     Select,
 } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {fetchCards} from "../../Services/Slices/CardsSlice";
+import {fetchCategory} from "../../Services/Slices/CategorySlice";
 
 interface PageForm {
     card: string;
@@ -57,41 +60,21 @@ const PagesModal = ({
                         handleChange,
                         handleCancel,
                     }: PagesModalProps) => {
-    const [cards, setCards] = useState<any[]>([]);
-    const [categories, setCategories] = useState<any[]>([]);
-    const [users, setUsers] = useState<any[]>([]);
+    const dispatch = useDispatch();
+
+    const cards = useSelector((state: any) => state.cards?.data || []);
+    const categories = useSelector((state: any) => state.category?.data || []);
+    const users = useSelector((state: any) => state.users?.data || []);
 
     const getClass = (base: string) => (customStyles[base] || "").trim();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [cardsRes, categoriesRes, usersRes] = await Promise.all([
-                    fetch("/api/cards/"),
-                    fetch("/api/categories/"),
-                    fetch("/api/users/"),
-                ]);
-
-                if (!cardsRes.ok || !categoriesRes.ok || !usersRes.ok) {
-                    throw new Error("Falha ao buscar dados");
-                }
-
-                const [cardsData, categoriesData, usersData] = await Promise.all([
-                    cardsRes.json(),
-                    categoriesRes.json(),
-                    usersRes.json(),
-                ]);
-
-                setCards(cardsData);
-                setCategories(categoriesData);
-                setUsers(usersData);
-            } catch (err) {
-                console.error("Erro ao buscar dados:", err);
-            }
-        };
-
-        if (isOpen) fetchData();
-    }, [isOpen]);
+        if (isOpen) {
+            dispatch<any>(fetchCards());
+            dispatch<any>(fetchCategory());
+            // dispatch(fetchUsers());
+        }
+    }, [isOpen, dispatch]);
 
     const handleSelect = (e: SelectChangeEvent<string>, field: string) => {
         setForm((prev) => ({ ...prev, [field]: e.target.value }));
@@ -114,7 +97,7 @@ const PagesModal = ({
             ["showBlocks", "codeView"],
             ["math"],
         ],
-        katex: katex,
+        katex,
         imageRotation: false,
         inlineStyle: true,
         strictMode: false,
@@ -137,13 +120,7 @@ const PagesModal = ({
     };
 
     return (
-        <Modal
-            isOpen={isOpen}
-            onClose={onClose}
-            withBackground
-            customStyles={customStyles}
-            title={title}
-        >
+        <Modal isOpen={isOpen} onClose={onClose} withBackground customStyles={customStyles} title={title}>
             <div className={getClass("modalContainer")}>
                 <div className={getClass("modalContentContainer")}>
                     <div className={getClass("modalBodyContainer")}>
@@ -159,18 +136,10 @@ const PagesModal = ({
                                     maxLength={255}
                                     onChange={(e) => {
                                         handleChange(e.target.value, "title");
-                                        if (errors.title)
-                                            setErrors((prev: any) => ({
-                                                ...prev,
-                                                title: false,
-                                            }));
+                                        if (errors.title) setErrors((prev: any) => ({ ...prev, title: false }));
                                     }}
                                 />
-                                {errors.title && (
-                                    <p className={getClass("errorText")}>
-                                        Título obrigatório
-                                    </p>
-                                )}
+                                {errors.title && <p className={getClass("errorText")}>Título obrigatório</p>}
                             </div>
 
                             <div className={getClass("field")}>
@@ -179,9 +148,7 @@ const PagesModal = ({
                                     setOptions={editorOptions}
                                     lang="pt_br"
                                     setContents={editedHTML}
-                                    onChange={(content) =>
-                                        handleChange(content, "text")
-                                    }
+                                    onChange={(content) => handleChange(content, "text")}
                                 />
                             </div>
 
@@ -197,11 +164,8 @@ const PagesModal = ({
                                         <MenuItem value="">
                                             <em>Selecione um card</em>
                                         </MenuItem>
-                                        {cards.map((item) => (
-                                            <MenuItem
-                                                key={item.id}
-                                                value={item.id.toString()}
-                                            >
+                                        {cards.map((item: any) => (
+                                            <MenuItem key={item.id} value={item.id.toString()}>
                                                 {item.title}
                                             </MenuItem>
                                         ))}
@@ -221,11 +185,8 @@ const PagesModal = ({
                                         <MenuItem value="">
                                             <em>Selecione uma categoria</em>
                                         </MenuItem>
-                                        {categories.map((item) => (
-                                            <MenuItem
-                                                key={item.id}
-                                                value={item.id.toString()}
-                                            >
+                                        {categories.map((item: any) => (
+                                            <MenuItem key={item.id} value={item.id.toString()}>
                                                 {item.name}
                                             </MenuItem>
                                         ))}
@@ -244,21 +205,15 @@ const PagesModal = ({
                                         onChange={handleUsersChange}
                                         renderValue={(selected) =>
                                             users
-                                                .filter((u) => (selected as number[]).includes(u.id))
-                                                .map((u) => u.username || u.name)
+                                                .filter((u: any) => (selected as number[]).includes(u.id))
+                                                .map((u: any) => u.username || u.name)
                                                 .join(", ")
                                         }
                                     >
-                                        {users.map((user) => (
+                                        {users.map((user: any) => (
                                             <MenuItem key={user.id} value={user.id}>
-                                                <Checkbox
-                                                    checked={
-                                                        form.allowed_users.includes(user.id)
-                                                    }
-                                                />
-                                                <ListItemText
-                                                    primary={user.username || user.name}
-                                                />
+                                                <Checkbox checked={form.allowed_users.includes(user.id)} />
+                                                <ListItemText primary={user.username || user.name} />
                                             </MenuItem>
                                         ))}
                                     </Select>
@@ -274,31 +229,17 @@ const PagesModal = ({
                                         { key: "has_posters", label: "Cartilhas" },
                                         { key: "has_cores", label: "Cores" },
                                     ].map(({ key, label }) => (
-                                        <div
-                                            className={getClass("checkboxBackground")}
-                                            key={key}
-                                        >
-                                            <label
-                                                className={getClass("checkboxLabel")}
-                                            >
+                                        <div className={getClass("checkboxBackground")} key={key}>
+                                            <label className={getClass("checkboxLabel")}>
                                                 <input
                                                     className={getClass("inputCheckbox")}
                                                     type="checkbox"
                                                     checked={(form as any)[key]}
                                                     onChange={() =>
-                                                        setForm((prev) => ({
-                                                            ...prev,
-                                                            [key]: !prev[
-                                                                key as keyof PageForm
-                                                                ],
-                                                        }))
+                                                        setForm((prev) => ({ ...prev, [key]: !prev[key as keyof PageForm] }))
                                                     }
                                                 />
-                                                <p
-                                                    className={getClass("checkboxText")}
-                                                >
-                                                    {label}
-                                                </p>
+                                                <p className={getClass("checkboxText")}>{label}</p>
                                             </label>
                                         </div>
                                     ))}
@@ -312,10 +253,7 @@ const PagesModal = ({
                     <button className={getClass("button")} onClick={onSubmit}>
                         {mode === "create" ? "Criar" : "Salvar"}
                     </button>
-                    <button
-                        className={`${getClass("button")} ${getClass("cancel")}`}
-                        onClick={onClose}
-                    >
+                    <button className={`${getClass("button")} ${getClass("cancel")}`} onClick={onClose}>
                         {mode === "create" ? "Fechar" : "Cancelar"}
                     </button>
                 </div>
