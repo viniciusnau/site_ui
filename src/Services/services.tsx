@@ -579,6 +579,10 @@ async getCategory(ids?: number[]): Promise<categoryForm> {
   async deleteHeader(id: number): Promise<headerForm>{
     return this.delete<headerForm>(`/header/${id}/`)
   }
+
+  async getProfiles(): Promise<any> {
+    return this.get<any>(`/profiles/`, true);
+  }
 }
 
 const apiService = new ApiService();
@@ -672,6 +676,7 @@ const services = {
   postPage: (body: any) => apiService.postPage(body),
   patchPage: (body: any, id: number) => apiService.patchPage(body, id),
   deletePage: (id: number) => apiService.deletePage(id),
+  getProfiles: () => apiService.getProfiles(),,
   getHeader: () => apiService.getHeader(),
   postHeader: (data: any) => apiService.postHeader(data),
   patchHeader: (data: any, id: number) => apiService.patchHeader(data, id),

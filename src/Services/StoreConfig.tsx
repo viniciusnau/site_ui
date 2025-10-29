@@ -26,6 +26,7 @@ import CoresAndUnitsSlice from './Slices/CoresAndUnitsSlice';
 import pagesSlice from "./Slices/PagesSlice";
 import headerSlice from "./Slices/HeaderSlice";
 
+import profilesSlice from "./Slices/ProfilesSlice";
 
 const reducer = combineReducers({
   a11ySlice,
@@ -46,6 +47,7 @@ const reducer = combineReducers({
   recordsSlice,
   cardsSlice,
   meSlice,
+  profilesSlice,
   cardRegisterSlice,
   bannerSlice,
   containerSlice,

@@ -31,7 +31,7 @@ const CardRegisterSlice = createSlice({
     getCardRegisterFailure: (state, action) => {
       state.error = true;
       state.loading = false;
-      state.msgError = action.payload || "Erro ao carregar registros de cards";
+      state.msgError = action.payload || "Erro ao carregar registros";
     },
     updateCardRegister: (state) => {
       state.error = false;

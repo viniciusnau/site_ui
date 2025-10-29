@@ -98,9 +98,9 @@ function HeaderAdmin({children}: HeaderAdminProps) {
                   <List size={iconSize}/>
                 </div>
               </li>
-              <li className={style.menuList} onClick={() => handleMenuClick("Cards", "/admin/cards") }>
+              <li className={style.menuList} onClick={() => handleMenuClick("Coleções", "/admin/colecoes") }>
                 <div className={style.buttonIcon}>
-                  <p>Cards</p>
+                  <p>Coleções</p>
                   <Server size={iconSize}/>
                 </div>
               </li>
@@ -116,61 +116,61 @@ function HeaderAdmin({children}: HeaderAdminProps) {
                   <Newspaper size={iconSize}/>
                 </div>
               </li>
-              <li className={style.menuList} onClick={() => handleMenuClick("Cartilhas", "/admin/cartilhas") }>
+              <li className={`${style.menuList} ${style.menuListBorder}`} onClick={() => handleMenuClick("Cartilhas", "/admin/cartilhas") }>
                 <div className={style.buttonIcon}>
                   <p>Cartilhas</p>
                   <Images size={iconSize}/>
                 </div>
               </li>
-              <li className={`${style.menuList} ${style.menuListBorder}`} onClick={() => handleMenuClick("Blog", "/admin/blog") }>
-                <div className={style.buttonIcon}>
-                  <p>Blog</p>
-                  <Rss size={iconSize}/>
-                </div>
-              </li>
+              {/*<li className={`${style.menuList} ${style.menuListBorder}`} onClick={() => handleMenuClick("Blog", "/admin/blog") }>*/}
+              {/*  <div className={style.buttonIcon}>*/}
+              {/*    <p>Blog</p>*/}
+              {/*    <Rss size={iconSize}/>*/}
+              {/*  </div>*/}
+              {/*</li>*/}
               <li className={style.menuList} onClick={() => handleMenuClick("Menu do Website", "/admin/menu-website") }>
                 <div className={style.buttonIcon}>
                   <p>Menu do Website</p>
                   <AppWindow size={iconSize}/>
                 </div>
               </li>
-              <li className={style.menuList} onClick={() => handleMenuClick("Agenda de eventos", "/admin/agenda-eventos") }>
-                <div className={style.buttonIcon}>
-                  <p>Agenda de eventos</p>
-                  <CalendarCheck size={iconSize}/>
-                </div>
-              </li>
-              <li className={`${style.menuList} ${style.menuListBorder}`} onClick={() => handleMenuClick("Formulários", "/admin/formularios") }>
-                <div className={style.buttonIcon}>
-                  <p>Formulários</p>
-                  <RectangleEllipsis size={iconSize}/>
-                </div>
-              </li>
+              {/*<li className={style.menuList} onClick={() => handleMenuClick("Agenda de eventos", "/admin/agenda-eventos") }>*/}
+              {/*  <div className={style.buttonIcon}>*/}
+              {/*    <p>Agenda de eventos</p>*/}
+              {/*    <CalendarCheck size={iconSize}/>*/}
+              {/*  </div>*/}
+              {/*</li>*/}
+              {/*<li className={`${style.menuList} ${style.menuListBorder}`} onClick={() => handleMenuClick("Formulários", "/admin/formularios") }>*/}
+              {/*  <div className={style.buttonIcon}>*/}
+              {/*    <p>Formulários</p>*/}
+              {/*    <RectangleEllipsis size={iconSize}/>*/}
+              {/*  </div>*/}
+              {/*</li>*/}
               <li className={style.menuList} onClick={() => handleMenuClick("Usuários", "/admin/usuarios") }>
                 <div className={style.buttonIcon}>
                   <p>Usuários</p>
                   <Users size={iconSize}/>
                 </div>
               </li>
-              <li className={style.menuList} onClick={() => handleMenuClick("Histórico de ações", "/admin/historico-de-acoes") }>
-                <div className={style.buttonIcon}>
-                  <p>Histórico de ações</p>
-                  <History size={iconSize}/>
-                </div>
-              </li>
-              <li className={`${style.menuList} ${style.menuListBorder}`} onClick={() => handleMenuClick("Emails Recebidos", "/admin/emails-recebidos") }>
-                <div className={style.buttonIcon}>
-                  <p>Emails Recebidos</p>
-                  <Mails size={iconSize}/>
-                </div>
-              </li>
-              <li className={style.menuList} onClick={() => handleMenuClick("Estatística", "/admin/estatistica") }>
-                <div className={style.buttonIcon}>
-                  <p>Estatística</p>
-                  <ChartNoAxesCombined size={iconSize}/>
-                </div>
-              </li>
-              <li className={`${style.menuList} ${style.menuListBorder}`} onClick={() => handleMenuClick("Configuração", "/admin/configuracao") }>
+              {/*<li className={style.menuList} onClick={() => handleMenuClick("Histórico de ações", "/admin/historico-de-acoes") }>*/}
+              {/*  <div className={style.buttonIcon}>*/}
+              {/*    <p>Histórico de ações</p>*/}
+              {/*    <History size={iconSize}/>*/}
+              {/*  </div>*/}
+              {/*</li>*/}
+              {/*<li className={`${style.menuList} ${style.menuListBorder}`} onClick={() => handleMenuClick("Emails Recebidos", "/admin/emails-recebidos") }>*/}
+              {/*  <div className={style.buttonIcon}>*/}
+              {/*    <p>Emails Recebidos</p>*/}
+              {/*    <Mails size={iconSize}/>*/}
+              {/*  </div>*/}
+              {/*</li>*/}
+              {/*<li className={style.menuList} onClick={() => handleMenuClick("Estatística", "/admin/estatistica") }>*/}
+              {/*  <div className={style.buttonIcon}>*/}
+              {/*    <p>Estatística</p>*/}
+              {/*    <ChartNoAxesCombined size={iconSize}/>*/}
+              {/*  </div>*/}
+              {/*</li>*/}
+              <li className={`${style.menuList}`} onClick={() => handleMenuClick("Configuração", "/admin/configuracao") }>
                 <div className={style.buttonIcon}>
                   <p>Configurações</p>
                   <Settings size={iconSize}/>

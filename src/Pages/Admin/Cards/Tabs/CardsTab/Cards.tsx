@@ -44,7 +44,7 @@ function Cards() {
   }, [dispatch]);
 
   const createCards: CreateButtonConfig = {
-    text: "Criar novo grupo de cards",
+    text: "Criar nova coleção",
     onClick: () => {
       setErrors({ title: false });
       resetForm();
@@ -62,10 +62,10 @@ function Cards() {
     try {
       await dispatch<any>(removeCards(card.id));
       setSnackbarType("deleteSuccess");
-      setSnackbarMessage("Card deletado com sucesso!");
+      setSnackbarMessage("Coleção deletada com sucesso!");
     } catch (err: any) {
       setSnackbarType("deleteError");
-      setSnackbarMessage(err?.message || "Erro ao deletar card");
+      setSnackbarMessage(err?.message || "Erro ao deletar coleção");
     }
   };
 
@@ -84,7 +84,7 @@ function Cards() {
         response = await dispatch<any>(postCards({ title: form.title, status: "published" }));
       }
 
-      if (response?.error) throw new Error("Erro ao salvar card");
+      if (response?.error) throw new Error("Erro ao salvar coleção");
 
       setSnackbarType(id ? "patchSuccess" : "postSuccess");
       setSnackbarMessage(
@@ -153,7 +153,7 @@ function Cards() {
             onClose={handleClose}
             form={form}
             setForm={setForm}
-            title={isCreateModalOpen ? "Criar Grupo de Card" : "Editar Grupo de Card"}
+            title={isCreateModalOpen ? "Criar Coleção" : "Editar Coleção"}
             customStyles={style}
             mode={isCreateModalOpen ? "create" : "edit"}
             onSubmit={() =>

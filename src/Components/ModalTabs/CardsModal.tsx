@@ -45,7 +45,7 @@ const CardsModal = ({
           <div className={getClass("modalContentContainer")}>
             <div className={getClass("modalBodyContainer")}>
               <fieldset className={getClass("category")}>
-                <legend>Dados do Grupo de Card</legend>
+                <legend>Dados da Coleção</legend>
                 <div className={getClass("field")}>
                   <label className={getClass("label")}>Título:</label>
                   <input
@@ -53,7 +53,7 @@ const CardsModal = ({
                           errors.title ? getClass("inputError") : ""
                       }`}
                       value={form.title}
-                      placeholder="Digite o título do grupo de card"
+                      placeholder="Digite o título da coleção"
                       maxLength={255}
                       onChange={(e) => {
                         handleChange(e.target.value, "title");
