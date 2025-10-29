@@ -163,7 +163,7 @@ const PagesModal = ({
                                         onChange={(e) => handleSelect(e, "card")}
                                     >
                                         <MenuItem value="">
-                                            <em>Selecione uma coleção</em>
+                                            <em>Limpar coleção</em>
                                         </MenuItem>
                                         {cards.map((item: any) => (
                                             <MenuItem key={item.id} value={item.id.toString()}>
@@ -184,7 +184,7 @@ const PagesModal = ({
                                         onChange={(e) => handleSelect(e, "category")}
                                     >
                                         <MenuItem value="">
-                                            <em>Selecione uma categoria</em>
+                                            <em>Limpar categoria</em>
                                         </MenuItem>
                                         {categories.map((item: any) => (
                                             <MenuItem key={item.id} value={item.id.toString()}>
@@ -228,7 +228,7 @@ const PagesModal = ({
                                         { key: "has_faq", label: "FAQ" },
                                         { key: "has_news", label: "Notícias" },
                                         { key: "has_posters", label: "Cartilhas" },
-                                        { key: "has_cores", label: "Cores" },
+                                        { key: "has_cores", label: "Núcleos" },
                                     ].map(({ key, label }) => (
                                         <div className={getClass("checkboxBackground")} key={key}>
                                             <label className={getClass("checkboxLabel")}>

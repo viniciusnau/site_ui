@@ -91,9 +91,13 @@ function Pages() {
             }
 
             const formData = new FormData();
-            Object.entries(form).forEach(([key, value]) =>
-                formData.append(key, String(value))
-            );
+
+            Object.entries(form)
+                .filter(([key]) => !["author", "published_at"].includes(key))
+                .forEach(([key, value]) => {
+                    formData.append(key, value != null ? value.toString() : "");
+                });
+
 
             let response;
             if (modalMode === "edit" && selectedItem) {
@@ -149,6 +153,15 @@ function Pages() {
 
     const columns: TableColumn<any>[] = [
         { key: "title", header: "Título", sortable: true },
+        {
+            key: "allowed_users",
+            header: "Usuários",
+            sortable: false,
+            render: (row) =>
+                row.allowed_users && row.allowed_users.length > 0
+                    ? row.allowed_users.map((u: any) => u.name).join(", ")
+                    : "Nenhum",
+        },
     ];
 
     const actions: ActionsColumnConfig<any> = {
@@ -159,7 +172,15 @@ function Pages() {
         edit: {
             onClick: (item) => {
                 setSelectedItem(item);
-                setForm(item);
+                const allowedUserIds = item.allowed_users
+                    ? item.allowed_users.map((u: any) => u.pk)
+                    : [];
+
+                setForm({
+                    ...item,
+                    allowed_users: allowedUserIds,
+                });
+
                 setEditedHTML(item.text || "");
                 setModalMode("edit");
                 setIsModalOpen(true);
