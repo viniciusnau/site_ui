@@ -187,7 +187,7 @@ function CardRegister() {
     view: {
       enabled: true,
       onClick: (item) => {
-        window.open(`/comunicacao/cards/${item.slug}`, "_blank");
+        window.open(`/colecao/registro/${item.slug}`, "_blank");
       },
     },
 

@@ -118,7 +118,7 @@ function Cards() {
     view: {
       enabled: true,
       onClick: (item) => {
-        window.open(`/comunicacao/card-list/${item.id}`, "_blank");
+        window.open(`/colecao/${item.id}`, "_blank");
       },
     },
     edit: {

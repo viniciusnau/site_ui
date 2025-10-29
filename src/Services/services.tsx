@@ -47,24 +47,26 @@ class ApiService {
       };
     }
 
-    throw new Error("Token de autenticação não encontrado");
+    return undefined
   }
 
   private async get<T>(
-    endpoint: string,
-    requireAuth: boolean = false
+      endpoint: string,
+      requireAuth: boolean = false
   ): Promise<T> {
     try {
+      const headers = this.getAuthHeaders();
       const config: AxiosRequestConfig = {};
 
-      if (requireAuth) {
-        config.headers = this.getAuthHeaders();
+      if (headers) {
+        config.headers = headers;
       }
 
       const response: AxiosResponse<T> = await axios.get(
-        `${this.baseURL}${endpoint}`,
-        config
+          `${this.baseURL}${endpoint}`,
+          config
       );
+
       return response.data;
     } catch (error: any) {
       console.error(`Erro na requisição GET ${endpoint}:`, error);
@@ -543,8 +545,9 @@ async getCategory(ids?: number[]): Promise<categoryForm> {
     return this.get<UnityAndCores>(`/cores-units/${query}`);
   }
 
-  async getPages(): Promise<any> {
-    return this.get<any>(`/page/`, true);
+  async getPages(path?: string): Promise<any> {
+    const query = path ? `?path=${encodeURIComponent(path)}` : "";
+    return this.get<any>(`/page/${query}`, true);
   }
 
   async getPageById(id: number): Promise<any> {
@@ -654,7 +657,7 @@ const services = {
   patchQuickAccessButtons: (data: any, id: number) => apiService.patchQuickAccessButtons(data, id),
   deleteQuickAccessButtons: (id: number) => apiService.deleteQuickAccessButtons(id),
   getUnityAndCores: (published?: string) => apiService.getUnityAndCores(published),
-  getPages: () => apiService.getPages(),
+  getPages: (path?: string) => apiService.getPages(path),
   getPageById: (id: number) => apiService.getPageById(id),
   postPage: (body: any) => apiService.postPage(body),
   patchPage: (body: any, id: number) => apiService.patchPage(body, id),

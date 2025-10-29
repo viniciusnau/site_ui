@@ -26,7 +26,7 @@ function Cards() {
             {
                 description: reg.subtitle,
                 seeMore: true,
-                link: `/comunicacao/cards/${reg.slug}`,
+                link: `/colecao/registro/${reg.slug}`,
             },
         ],
     }));

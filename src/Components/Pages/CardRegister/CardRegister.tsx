@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
-import PageNotFound from "../../../Pages/PageNotFound/PageNotFound";
+import Page from "../../../Pages/Page/Page";
 import Loading from "../../../Components/Loading/Loading";
 import { PATH } from "../../../PATH";
 import CardButton from "../../../Components/CardButton/CardButton";
@@ -42,7 +42,7 @@ const CardRegister = () => {
   }, [slug]);
 
   if (loading) return <Loading size={100} type="spin" label="Carregando card" />;
-  if (notFound) return <PageNotFound />;
+  if (notFound) return <Page />;
 
   const relatedCards = card.related_cards?.map((related: any) => ({
     title: related.title,
