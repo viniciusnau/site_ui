@@ -95,9 +95,17 @@ function Pages() {
             Object.entries(form)
                 .filter(([key]) => !["author", "published_at"].includes(key))
                 .forEach(([key, value]) => {
-                    formData.append(key, value != null ? value.toString() : "");
-                });
+                    const fieldName = key === "allowed_users" ? "allowed_users_ids" : key;
 
+                    if (Array.isArray(value)) {
+                        value.forEach((v) => formData.append(fieldName, v.toString()));
+                    } else {
+                        formData.append(
+                            fieldName,
+                            value != null ? value.toString() : ""
+                        );
+                    }
+                });
 
             let response;
             if (modalMode === "edit" && selectedItem) {
