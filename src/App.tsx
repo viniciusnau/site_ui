@@ -318,11 +318,6 @@ function RouterContent({
               <Route path="*" element={<Page />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route
-                path="/comunicacao/noticias/:slug"
-                element={<NewsPage />}
-              />
-              <Route path="/comunicacao/noticias/" element={<News />} />
-              <Route
                   path="/colecao/registro/:slug"
                   element={<CardRegister />}
               />
