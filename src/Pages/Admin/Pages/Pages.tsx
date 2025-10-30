@@ -160,7 +160,7 @@ function Pages() {
     };
 
     const columns: TableColumn<any>[] = [
-        { key: "title", header: "Título", sortable: true },
+        { key: "title", header: "Título", sortable: false },
         {
             key: "allowed_users",
             header: "Usuários",
@@ -281,6 +281,13 @@ function Pages() {
                 columns={columns}
                 actionsColumn={actions}
                 createButton={createButton}
+                dateColumn={{
+                    enabled: true,
+                    header: "Criado em",
+                    dateField: "created_at",
+                    width: "120px",
+                    sortable: true,
+                }}
                 searchable
                 sortable
                 pagination

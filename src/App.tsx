@@ -4,7 +4,7 @@ import Home from "./Pages/Home/Home";
 import Breadcrumb from "./Components/Breadcrumb/Breadcrumb";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import Page from "./Pages/Page/Page";
 import { useRef, useState } from "react";
 import "./App.css";
 import Login from "./Pages/Login/Login";
@@ -274,7 +274,7 @@ function RouterContent({
               <Route
                 path="/admin/*"
                 element={
-                  <ProtectedRoute Component={PageNotFound} path="/admin/*" />
+                  <ProtectedRoute Component={Page} path="/admin/*" />
                 }
               />
               <Route
@@ -312,135 +312,18 @@ function RouterContent({
             <Routes>
               <Route path="/" element={<Home />} />
               <Route
-                path="/institucional/sobre-a-defensoria"
-                element={<AboutDefensoria />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/organograma"
-                element={<Organograma />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/defensoria-publica-geral-e-subdefensoria-publica-geral/composicao"
-                element={<CompositionGeneralPublicDefenders />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/defensoria-publica-geral-e-subdefensoria-publica-geral/atribuicoes"
-                element={<ResponsibilitiesGeneralPublicDefenders />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/defensoria-publica-geral-e-subdefensoria-publica-geral/regimento"
-                element={<RegulationsGeneralPublicDefenders />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/corregedoria-geral/composicao"
-                element={<CompositionGeneralOversightOffice />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/corregedoria-geral/atribuicoes"
-                element={<ResponsibilitiesGeneralOversightOffice />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/corregedoria-geral/regimento"
-                element={<RegulationsGeneralOversightOffice />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/conselho-superior/composicao"
-                element={<CompositionSuperiorCouncil />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/conselho-superior/atribuicoes"
-                element={<ResponsibilitiesSuperiorCouncil />}
-              ></Route>
-              <Route
-                path="/institucional/administracao-superior/conselho-superior/regimento"
-                element={<RegulationsSuperiorCouncil />}
-              ></Route>
-              <Route
-                path="/institucional/areas-de-atuacao"
-                element={<AreasOfActivity />}
-              ></Route>
-              <Route
-                path="/institucional/ouvidoria-geral/sobre-a-ouvidoria"
-                element={<AboutOuvidoria />}
-              ></Route>
-              <Route
-                path="/institucional/ouvidoria-geral/composicao"
-                element={<OuvidoraComposition />}
-              ></Route>
-              <Route
-                path="/institucional/nudeconci"
-                element={<Nudeconci />}
-              ></Route>
-              <Route
-                path="/atendimento/quem-pode-ser-atendido"
-                element={<WhoCanBeServed />}
-              ></Route>
-              <Route
-                path="/atendimento/documentacao-necessaria"
-                element={<RequiredDocumentation />}
-              ></Route>
-              <Route
-                path="/atendimento/nucleos-especializados"
-                element={<SpecializedCores />}
-              ></Route>
-              <Route
-                path="/atendimento/nucleos-regionais-e-unidades"
-                element={<UnityAndCores />}
-              ></Route>
-              <Route
-                path="/atendimento/atribuicoes-das-defensorias"
-                element={<DutiesOfDefensoria />}
-              ></Route>
-              <Route
-                path="/transparencia/radar-da-transparencia"
-                element={<PublicTransparencyRadar />}
-              ></Route>
-              <Route
-                path="/servicos/cartas-de-servicos"
-                element={<ServiceCharter />}
-              ></Route>
-              <Route
-                path="/legislacao/legislacao-estadual"
-                element={<StateLegislation />}
-              ></Route>
-              <Route
-                path="/legislacao/legislacao-federal"
-                element={<FederalLegislation />}
-              ></Route>
-              <Route
-                path="/lei-geral-de-protecao-de-dados"
-                element={<LGPD />}
-              ></Route>
-              <Route
-                path="/perguntas-frequentes"
-                element={<FrequentsQuestions/>}
-              ></Route>
-              <Route
                 path="/esqueceu-a-senha"
                 element={<ChangePassword />}
               ></Route>
-              <Route path="*" element={<PageNotFound />}></Route>
+              <Route path="*" element={<Page />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route
-                path="/comunicacao/noticias/:slug"
-                element={<NewsPage />}
-              />
-              <Route path="/comunicacao/noticias/" element={<News />} />
-              <Route
-                  path="/comunicacao/cards/:slug"
+                  path="/colecao/registro/:slug"
                   element={<CardRegister />}
               />
               <Route
-                  path="/comunicacao/card-list/:id"
+                  path="/colecao/:id"
                   element={<Cards />}
-              />
-              <Route
-                path="/servicos/cartilhas-e-revista/:slug"
-                element={<PostersPage />}
-              ></Route>
-              <Route
-                path="/servicos/cartilhas-e-revista/"
-                element={<MainPostersPage />}
               />
             </Routes>
             <ScrollToTop

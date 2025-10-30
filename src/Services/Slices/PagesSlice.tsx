@@ -101,10 +101,10 @@ export const {
 
 export default PagesSlice.reducer;
 
-export const fetchPages = () => async (dispatch: any) => {
+export const fetchPages = (path?: string) => async (dispatch: any) => {
     dispatch(getPages());
     try {
-        const data = await services.getPages();
+        const data = await services.getPages(path);
         dispatch(getPagesSuccess(data));
     } catch (err: any) {
         dispatch(getPagesFailure(err.message));

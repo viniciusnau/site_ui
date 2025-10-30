@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
-import PageNotFound from "../../../Pages/PageNotFound/PageNotFound";
+import Page from "../../../Pages/Page/Page";
 import Loading from "../../../Components/Loading/Loading";
 import { PATH } from "../../../PATH";
 
@@ -43,7 +43,7 @@ const NewsPage = () => {
   }, [slug]);
 
   if (loading) return <Loading size={100} type="spin" label="Carregando notícia" />;
-  if (notFound) return <PageNotFound />;
+  if (notFound) return <Page />;
 
   const FormatDate = (date: string) => {
     const [dayPart, timePart] = date.split("T");

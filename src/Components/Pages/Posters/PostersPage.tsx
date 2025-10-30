@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DOMPurify from "dompurify";
 import style from "./PostersPage.module.css";
-import PageNotFound from "../../../Pages/PageNotFound/PageNotFound";
+import Page from "../../../Pages/Page/Page";
 import { Download } from "lucide-react";
 import { PATH } from "../../../PATH";
 import Loading from "../../../Components/Loading/Loading";
@@ -38,7 +38,7 @@ const PostersPage = () => {
   }, [slug]);
 
   if (loading) return <Loading size={100} type="spin" label="Carregando cartilha" />;
-  if (notFound) return <PageNotFound />;
+  if (notFound) return <Page />;
 
   const FormatDate = (date: string) => {
     const [dayPart, timePart] = date.split("T");

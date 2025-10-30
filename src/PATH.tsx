@@ -1,7 +1,7 @@
 export const PATH = {
-    base: "http://172.16.212.148:8000/api"
+    base: "https://site.defensoria.sc.def.br/api"
 }
 
 export const ImagesPATH ={
-    base: "http://172.16.212.148:8000/"
+    base: "https://site.defensoria.sc.def.br/"
 }
