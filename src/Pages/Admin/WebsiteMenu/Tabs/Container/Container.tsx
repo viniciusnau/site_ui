@@ -280,7 +280,7 @@ function Container() {
       <ContainerModal
         isOpen={isCreateModalOpen || isEditModalOpen}
         onClose={handleClose}
-        title={isCreateModalOpen ? "Criar Banner" : "Editar Banner"}
+        title={isCreateModalOpen ? "Criar Container" : "Editar Container"}
         form={form}
         setForm={setForm}
         onSubmit={() =>
