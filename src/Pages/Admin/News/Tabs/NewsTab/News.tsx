@@ -301,7 +301,7 @@ function News() {
     view: {
       enabled: true,
       onClick: (item) => {
-        window.open(`/comunicacao/noticias/${item.slug}`, "_blank");
+        window.open(`/${item.path}`, "_blank");
       },
     },
 
