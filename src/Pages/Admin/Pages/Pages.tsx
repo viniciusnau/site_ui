@@ -12,9 +12,10 @@ import {
 import {
     TableColumn,
     ActionsColumnConfig,
-    CreateButtonConfig,
+    CreateButtonConfig, BooleanColumnConfig,
 } from "../../../types/tableTypes";
 import style from "../Posters/Posters.module.css";
+import {news} from "../../../Components/TableInterfaces";
 
 
 interface PageForm {
@@ -176,7 +177,14 @@ function Pages() {
         enabled: true,
         header: "Ações",
         width: "150px",
-        permissions: { canEdit: true, canDelete: true, canCreate: true },
+        permissions: { canEdit: true, canDelete: true, canCreate: true, canView: true },
+        view: {
+            enabled: true,
+            onClick: (item) => {
+                const baseUrl = window.location.origin;
+                window.open(`${baseUrl}${item.path}`, "_blank");
+            },
+        },
         edit: {
             onClick: (item) => {
                 setSelectedItem(item);
@@ -208,6 +216,19 @@ function Pages() {
             setIsModalOpen(true);
         },
     };
+
+    const booleanConfig: BooleanColumnConfig<news>[] = [
+        {
+            enabled: true,
+            header: "Status",
+            field: "status",
+            checkValue: "published",
+            xValue: "not_published",
+            scheduledValue: "scheduled",
+            width: "50px",
+            sortable: false,
+        }
+    ];
 
     return (
         <>
@@ -280,6 +301,7 @@ function Pages() {
                 data={data}
                 columns={columns}
                 actionsColumn={actions}
+                booleanColumns={booleanConfig}
                 createButton={createButton}
                 dateColumn={{
                     enabled: true,

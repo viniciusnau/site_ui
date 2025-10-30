@@ -10,6 +10,8 @@ import Posters from "../Posters/MainPostersPage";
 import UnityAndCores from "../Support/UnityAndCores/UnityAndCores";
 import style from "../../Components/Pages/News/NewsPage.module.css";
 import DOMPurify from "dompurify";
+import Cards from "../Cards/Cards";
+import ModulesTable from "../../Components/ModulesTable/ModulesTable";
 
 function Page() {
     const dispatch = useDispatch<any>();
@@ -55,6 +57,14 @@ function Page() {
 
     if (data.has_cores) {
         return <UnityAndCores />;
+    }
+
+    if (data.card) {
+        return <Cards id={data.card} />;
+    }
+
+    if (data.category) {
+        return <ModulesTable categoryIds={[data.category]} />;
     }
 
     if (data.text) {
