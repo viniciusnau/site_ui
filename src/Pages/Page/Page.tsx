@@ -22,8 +22,7 @@ function Page() {
         dispatch(fetchPages(currentPath));
     }, [dispatch, location.pathname]);
 
-    if (loading) return <Loading size={100} type="spin" label="Carregando página..." />;
-    if (error) return <div className={styles.container}>
+    const notFound = <div className={styles.container}>
         <div className={styles.content}>
             <h1 className={styles.title}>Página não encontrada!</h1>
             <p className={styles.text}>
@@ -32,8 +31,15 @@ function Page() {
                 Volte para a página inicial para continuar.
             </p>
         </div>
-    </div>;
-    if (!data) return null;
+    </div>
+
+    if (loading) return <Loading size={100} type="spin" label="Carregando página..." />;
+    if (error) return notFound;
+    if (!data) return notFound;
+
+    if (data.status !== "not_published") {
+        return notFound;
+    }
 
     if (data.has_news) {
         return <News />;
@@ -69,16 +75,7 @@ function Page() {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.content}>
-                <h1 className={styles.title}>Página não encontrada!</h1>
-                <p className={styles.text}>
-                    O caminho que você tentou acessar não está disponível.
-                    <br />
-                    Volte para a página inicial para continuar.
-                </p>
-            </div>
-        </div>
+        notFound
     );
 }
 
