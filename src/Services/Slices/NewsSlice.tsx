@@ -1,15 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import services from "../services";
+import axios from "axios"; 
 
 interface NewsSliceState {
-  data: any[];
+  data: {
+    results: any[];
+    count: number;
+    next: string | null;
+    previous: string | null;
+  };
   loading: boolean;
   error: boolean;
   msgError: string | Record<string, string[]>;
 }
 
 const initialState: NewsSliceState = {
-  data: [],
+  data: {
+    results: [],
+    count: 0,
+    next: null,
+    previous: null
+  },
   loading: true,
   error: false,
   msgError: ""
@@ -38,7 +49,7 @@ const NewsSlice = createSlice({
       state.loading = true;
     },
     updateNewsSuccess: (state, action) => {
-      state.data = state.data.map((item) =>
+      state.data.results = state.data.results.map((item) =>
         item.id === action.payload.id ? action.payload : item
       );
       state.error = false;
@@ -54,7 +65,8 @@ const NewsSlice = createSlice({
       state.loading = true;
     },
     createNewsSuccess: (state, action) => {
-      state.data.push(action.payload);
+      state.data.results.push(action.payload);
+      state.data.count += 1;
       state.error = false;
       state.loading = false;
     },
@@ -68,7 +80,8 @@ const NewsSlice = createSlice({
       state.loading = true;
     },
     deleteNewsSuccess: (state, action) => {
-      state.data = state.data.filter((item) => item.id !== action.payload);
+      state.data.results = state.data.results.filter((item) => item.id !== action.payload);
+      state.data.count -= 1;
       state.error = false;
       state.loading = false;
     },
@@ -97,7 +110,7 @@ export const {
 
 export default NewsSlice.reducer;
 
-export const fetchNews = (published?: string) => async (
+export const fetchNews = (published?: string, page?: number, pageSize?: number) => async (
     dispatch: (arg0: {
       payload: any;
       type: "news/getNews" | "news/getNewsSuccess" | "news/getNewsFailure";
@@ -105,11 +118,23 @@ export const fetchNews = (published?: string) => async (
 ) => {
   dispatch(getNews());
   try {
-    const data = await services.getNews(published);
+    const data = await services.getNews(published, page, pageSize);
     dispatch(getNewsSuccess(data));
   } catch (err: any) {
     const detailError = err.response?.data || err.message;
     console.log("err: ", detailError);
+    dispatch(getNewsFailure(detailError));
+    throw detailError;
+  }
+};
+
+export const fetchNextNewsPage = (url: string) => async (dispatch: any) => {
+  dispatch(getNews());
+  try {
+    const response = await axios.get(url);
+    dispatch(getNewsSuccess(response.data));
+  } catch (err: any) {
+    const detailError = err.response?.data || err.message;
     dispatch(getNewsFailure(detailError));
     throw detailError;
   }
@@ -168,7 +193,6 @@ export const patchNews = (payload: any, id: number) => async (dispatch: any) => 
     throw detailError;
   }
 };
-
 
 export const removeNews = (id: number) => async(dispatch: any) =>{
     dispatch(deleteNews());

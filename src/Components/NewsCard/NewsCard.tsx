@@ -10,7 +10,7 @@ const NewsCard: React.FC = () => {
   const { data, loading, error } = useSelector((state: any) => state.newsSlice);
 
   useEffect(() => {
-    dispatch<any>(fetchNews());
+    dispatch<any>(fetchNews("true", 1, 20)); 
   }, [dispatch]);
 
   const formatDate = (isoDate: string) => {
@@ -21,12 +21,14 @@ const NewsCard: React.FC = () => {
   if (loading)
     return <Loading size={100} type="spin" label="Carregando notícias..." />;
   if (error) return <p>Erro ao carregar notícias.</p>;
-  if (data.length === 0) return <p>Nenhuma notícia encontrada.</p>;
+  
+  const newsItems = data?.results || []; 
+  
+  if (newsItems.length === 0) return <p>Nenhuma notícia encontrada.</p>;
 
-  const mainNews = data.find((item: any) => item.highlight === "main");
-  const secondaryNews = data.filter(
-    (item: any) => item.highlight === "secondary"
-  );
+  const mainNews = newsItems.find((item: any) => item.highlight === "main");
+  const secondaryNews = newsItems.filter((item: any) => 
+    item.highlight === "secondary");
 
   return (
     <div className={styles.newsContainer}>
