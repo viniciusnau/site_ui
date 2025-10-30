@@ -328,15 +328,6 @@ function MainHeaderAdminPage() {
                   ))
                 )}
               </div>
-
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                  JSON Exportado:
-                </h3>
-                <pre className="text-xs bg-gray-900 text-green-400 p-4 rounded overflow-x-auto">
-                  {JSON.stringify(form, null, 2)}
-                </pre>
-              </div>
             </div>
           </div>
         </div>
