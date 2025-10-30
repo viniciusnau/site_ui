@@ -3,6 +3,7 @@ import {
   TableColumn,
   ActionsColumnConfig,
   BooleanColumnConfig,
+  CreateButtonConfig
 } from "../../../../../types/tableTypes";
 import { useEffect, useState } from "react";
 import Snackbar from "../../../../../Components/Snackbar/Snackbar";
@@ -215,6 +216,15 @@ function Container() {
       onClick: (item) => {},
     },
   };
+
+    /*const createContainer: CreateButtonConfig = {
+      text: "Criar novo grupo de container",
+      onClick: () => {
+        setErrors({ title: false });
+        resetForm();
+        setIsCreateModalOpen(true);
+      },
+    };*/
   return (
     <>
       {snackbarType === "noneChange" && (
@@ -270,7 +280,7 @@ function Container() {
       <ContainerModal
         isOpen={isCreateModalOpen || isEditModalOpen}
         onClose={handleClose}
-        title={isCreateModalOpen ? "Criar Banner" : "Editar Banner"}
+        title={isCreateModalOpen ? "Criar Container" : "Editar Container"}
         form={form}
         setForm={setForm}
         onSubmit={() =>
@@ -292,6 +302,7 @@ function Container() {
         sortable
         pagination
         itemsPerPage={6}
+        //createButton={createContainer}
       />
     </>
   );
