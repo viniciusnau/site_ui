@@ -221,6 +221,22 @@ interface quickAccessButtonsForm{
   link: string;
 }
 
+interface headerForm{
+  status: string;
+  background_color: string;
+  name_color: string;
+  structure: any[];
+}
+
+interface MenuItem {
+  uid?: string;
+  name: string;
+  type: string;
+  page?: string;
+  children?: MenuItem[];
+}
+
+
 interface UnityAndCores{
   id: number;
   core_name: string;
@@ -254,4 +270,6 @@ export type {
   serviceButtonsForm,
   quickAccessButtonsForm,
   UnityAndCores,
+  headerForm,
+  MenuItem,
 };

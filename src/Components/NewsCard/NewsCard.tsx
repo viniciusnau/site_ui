@@ -39,7 +39,7 @@ const NewsCard: React.FC = () => {
       )}
       {mainNews && (
         <Link
-          to={`/comunicacao/noticias/${mainNews.slug}`}
+          to={`/${mainNews.slug}`}
           className={`${styles.newsCard} ${styles.mainNews}`}
         >
           <img
@@ -59,7 +59,7 @@ const NewsCard: React.FC = () => {
           {secondaryNews.map((item: any) => (
             <Link
               key={item.id}
-              to={`/comunicacao/noticias/${item.slug}`}
+              to={`/${item.path}`}
               className={`${styles.newsCard} ${styles.secondaryNews}`}
             >
               <div className={styles.imageWrapper}>

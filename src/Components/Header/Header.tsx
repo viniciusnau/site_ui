@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import image from "../../Assets/Defensoria_logo.png";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Search, ChevronUp, Menu, Ellipsis, X } from "lucide-react";
+import { Search, ChevronUp, Menu, X } from "lucide-react";
 import { fetchSocialMedia } from "../../Services/Slices/SocialMediaSlice";
 import { useIsResponsive } from "../Helper";
 import DropdownItem from "../DropdownItem/DropdownItem";
-import { menuItems } from "../Consts";
 import { useLastPathSegment } from "../Helper";
 import Modal from "../Modal/Modal";
 import styles from "./Header.module.css";
@@ -15,14 +13,21 @@ import Input from "../Forms/Input";
 import Button from "../Forms/Button";
 import { Facebook, Instagram, Twitter, Youtube, Linkedin } from "lucide-react";
 import { TextField, InputAdornment, IconButton, Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHeader } from "../../Services/Slices/HeaderSlice";
 
 interface MenuItem {
-  label: string;
-  path: string;
-  children?: MenuItem[];
+  name: string;
+  type: "internal" | "external" | "path";
+  link?: string;
+  page?: string;
+  children: MenuItem[];
 }
 
 function Header() {
+  const headerData = useSelector((state: any) => state.headerSlice.data);
+  const headerDataFiltered =
+    headerData.length > 0 && headerData[0].structure ? headerData[0].structure : [];
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -75,7 +80,6 @@ function Header() {
         return null;
     }
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.slice(0, 300);
 
@@ -104,14 +108,18 @@ function Header() {
   };
 
   useEffect(() => {
-    const MAX_ITEMS = menuItems.length <= 7 ? 7 : 5;
-    const MAX_VISIBLE_ITEMS = isResponsive ? 5 : MAX_ITEMS;
-    const visible = menuItems.slice(0, MAX_VISIBLE_ITEMS);
-    const overflow = menuItems.slice(MAX_VISIBLE_ITEMS);
+    dispatch<any>(fetchHeader());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const MAX_ITEMS = headerDataFiltered.length <= 7 ? 7 : 6;
+    const MAX_VISIBLE_ITEMS = isResponsive ? 6 : MAX_ITEMS;
+    const visible = headerDataFiltered.slice(0, MAX_VISIBLE_ITEMS);
+    const overflow = headerDataFiltered.slice(MAX_VISIBLE_ITEMS);
     setVisibleItems(visible);
     setOverflowItems(overflow);
     setShowMore(false);
-  }, [menuItems, isResponsive]);
+  }, [isResponsive, headerDataFiltered]);
 
   useEffect(() => {
     if (!sidebarOpen) {
@@ -146,33 +154,35 @@ function Header() {
     );
   };
 
-  const renderMenuItems = (
-    items: MenuItem[],
-    parentKey = ""
-  ): React.ReactNode => {
-    return items.map((item, idx) => {
-      const key = parentKey ? `${parentKey}-${idx}` : `${idx}`;
-      const isOpen = openDropdowns.has(key);
-      const isDesktop = !isMobile;
-      const isActiveAncestor = Array.from(openDropdowns).some(
-        (openKey) => openKey === key || openKey.startsWith(`${key}-`)
-      );
+const renderMenuItems = (
+  items: MenuItem[],
+  parentKey = "",
+  nameColor: string,
+): React.ReactNode => {
+  return items.map((item, idx) => {
+    const key = parentKey ? `${parentKey}-${idx}` : `${idx}`;
+    const isOpen = openDropdowns.has(key);
+    const isDesktop = !isMobile;
+    const isActiveAncestor = Array.from(openDropdowns).some(
+      (openKey) => openKey === key || openKey.startsWith(`${key}-`)
+    );
 
-      return (
-        <DropdownItem
-          key={key}
-          item={item}
-          keyPath={key}
-          isOpen={isOpen}
-          isActiveAncestor={isActiveAncestor}
-          isDesktop={isDesktop}
-          toggleDropdown={toggleDropdown}
-          renderMenuItems={renderMenuItems}
-          customStyles={styles}
-        />
-      );
-    });
-  };
+    return (
+      <DropdownItem
+        key={key}
+        item={item}
+        keyPath={key}
+        isOpen={isOpen}
+        isActiveAncestor={isActiveAncestor}
+        isDesktop={isDesktop}
+        toggleDropdown={toggleDropdown}
+        renderMenuItems={renderMenuItems}
+        customStyles={styles}
+        nameColor={nameColor}
+      />
+    );
+  });
+};
 
   return (
     <header className={`${styles.header} ${styles[pageClass]}`}>
@@ -206,7 +216,10 @@ function Header() {
           </div>
         </div>
       </div>
-      <div className={styles.container}>
+      <div
+        className={styles.container}
+        style={{ background: headerData?.[0]?.background_color }}
+      >
         <button
           className={styles.mobileMenu}
           id="mobileMenu"
@@ -231,8 +244,10 @@ function Header() {
           id="headerButtons"
           ref={containerRef}
         >
-          {visibleItems.map((item, idx) => (
-            <React.Fragment key={idx}>{renderMenuItems([item])}</React.Fragment>
+          {visibleItems.map((item: any, idx: any) => (
+            <React.Fragment key={idx}>
+              {renderMenuItems([item], "", headerData?.[0]?.name_color || "#000")}
+            </React.Fragment>
           ))}
 
           {overflowItems.length > 0 && (
@@ -240,18 +255,19 @@ function Header() {
               className={styles.menuItemWrapper}
               onMouseEnter={() => setShowMore(!showMore)}
             >
-              <div className={`${styles.menuItem} ${styles.menuItemWrapper}`}>
-                <div
-                  className={`${styles.menuItem} ${styles.menuItemWithIcon}`}
-                >
-                  <Ellipsis />
+              <div className={`${styles.menuItem} `}>
+                <div className={`${styles.menuItemWithIcon}`} style={{color: headerData?.[0]?.name_color}}>
                   Ver mais
                   <ChevronUp size={16} className={styles.dropdownIcon} />
                 </div>
               </div>
               {showMore && (
-                <div className={styles.dropdown}>
-                  {renderMenuItems(overflowItems)}
+                <div className={`${styles.dropdown}`}>
+                  {renderMenuItems(
+                    overflowItems,
+                    "",
+                    headerData?.[0]?.name_color || ""
+                  )}
                 </div>
               )}
             </div>
@@ -316,7 +332,7 @@ function Header() {
                 </Box>
               </div>
               <nav className={styles.sidebarNav}>
-                {renderMenuItems(menuItems)}
+                {renderMenuItems(headerDataFiltered, "", "")}
               </nav>
             </div>
           </div>

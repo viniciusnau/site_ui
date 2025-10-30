@@ -317,14 +317,6 @@ function RouterContent({
               ></Route>
               <Route path="*" element={<Page />}></Route>
               <Route path="/login" element={<Login />}></Route>
-              <Route
-                  path="/colecao/registro/:slug"
-                  element={<CardRegister />}
-              />
-              <Route
-                  path="/colecao/:id"
-                  element={<Cards />}
-              />
             </Routes>
             <ScrollToTop
               smooth

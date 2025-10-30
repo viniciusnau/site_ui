@@ -68,6 +68,7 @@ interface unit {
 }
 
 interface news {
+  path: string;
   id: number;
   author: string;
   status: string;

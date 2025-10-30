@@ -159,6 +159,7 @@ const PagesModal = ({
                                     <InputLabel id="card">Coleção</InputLabel>
                                     <Select
                                         labelId="card"
+                                        label="Coleção"
                                         value={form.card || ""}
                                         onChange={(e) => handleSelect(e, "card")}
                                     >
@@ -180,6 +181,7 @@ const PagesModal = ({
                                     <InputLabel id="category">Categoria</InputLabel>
                                     <Select
                                         labelId="category"
+                                        label="Categoria"
                                         value={form.category || ""}
                                         onChange={(e) => handleSelect(e, "category")}
                                     >
@@ -202,6 +204,7 @@ const PagesModal = ({
                                     <Select
                                         labelId="allowed_users"
                                         multiple
+                                        label="Usuários"
                                         value={form.allowed_users || []}
                                         onChange={handleUsersChange}
                                         renderValue={(selected) =>

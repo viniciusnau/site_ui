@@ -1,12 +1,15 @@
-import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import defaultStyles from './DropdownItem.module.css';
-import { ChevronUp } from 'lucide-react';
+import React, { useEffect, useRef } from "react";
+import defaultStyles from "./DropdownItem.module.css";
+import { ChevronUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface MenuItem {
-  label: string;
-  path: string;
-  children?: MenuItem[];
+  name: string;
+  path?: string;
+  link?: string;
+  page?: string;
+  type: "internal" | "external" | "path";
+  children: MenuItem[];
   icon?: any;
 }
 
@@ -17,8 +20,9 @@ interface Props {
   isActiveAncestor: boolean;
   isDesktop: boolean;
   toggleDropdown: (key: string) => void;
-  renderMenuItems: (items: MenuItem[], parentKey: string) => React.ReactNode;
+  renderMenuItems: (items: MenuItem[], parentKey: string, nameColor: string) => React.ReactNode;
   customStyles?: { [key: string]: string };
+  nameColor?: string;
 }
 
 const DropdownItem: React.FC<Props> = ({
@@ -29,67 +33,85 @@ const DropdownItem: React.FC<Props> = ({
   isDesktop,
   toggleDropdown,
   renderMenuItems,
-  customStyles = {}
+  customStyles = {},
+  nameColor,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const hasChildren = item.children && item.children.length > 0;
 
   useEffect(() => {
     if (ref.current) {
       if (isDesktop) {
-        ref.current.style.maxHeight = isOpen ? `${ref.current.scrollHeight}px` : '';
+        ref.current.style.maxHeight = isOpen
+          ? `${ref.current.scrollHeight}px`
+          : "";
       } else {
-        ref.current.style.maxHeight = isOpen ? `${ref.current.scrollHeight}px` : '0px';
+        ref.current.style.maxHeight = isOpen
+          ? `${ref.current.scrollHeight}px`
+          : "0px";
       }
     }
   }, [isOpen, isDesktop]);
 
-  const hasChildren = !!item.children;
-
   const getClass = (base: string) =>
-    `${defaultStyles[base] || ''} ${customStyles[base] || ''}`.trim();
+    `${defaultStyles[base] || ""} ${customStyles[base] || ""}`.trim();
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (hasChildren) {
+      toggleDropdown(keyPath);
+    }
+
+    if (item.type === "internal" && item.page) {
+      navigate(item.page);
+    } else if (item.type === "external" && item.link) {
+      window.open(item.link, "_blank");
+    } else if (item.type === "path") {
+
+    }
+  };
 
   return (
-    <div className={getClass('menuItemWrapper')}>
-      {hasChildren ? (
-        <div
-          className={`${getClass('menuItem')} ${isActiveAncestor ? getClass('activeAncestor') : ''}`}
-          onClick={!isDesktop ? () => toggleDropdown(keyPath) : undefined}
-        >
-          <div className={getClass('menuItemWithIcon')}>
-            {item.icon && (
-              <item.icon size={16} className={getClass('menuIcon')} />
-            )}
-            <span className={getClass('label')}>{item.label}</span>
+    <div className={getClass("menuItemWrapper")}>
+      <div
+        className={`${getClass("menuItem")} ${
+          isActiveAncestor ? getClass("activeAncestor") : ""
+        }`}
+        onClick={handleClick}
+      >
+        <div className={getClass("menuItemWithIcon")}>
+          {item.icon && (
+            <item.icon size={16} className={getClass("menuIcon")} />
+          )}
+          <span className={getClass("label")} style={{ color: nameColor }}>{item.name}</span>
+
+          {hasChildren && (
             <ChevronUp
               size={16}
-              className={`${getClass('dropdownIcon')} ${isActiveAncestor ? getClass('rotated') : ''}`}
+              className={`${getClass("dropdownIcon")} ${
+                isOpen ? getClass("rotated") : ""
+              }`}
             />
-          </div>
+          )}
         </div>
-      ) : (
-        <Link
-          to={item.path}
-          className={`${getClass('menuItem')} ${isActiveAncestor ? getClass('activeAncestor') : ''}`}
-        >
-          <div className={getClass('menuItemWithIcon')}>
-            {item.icon && (
-              <item.icon size={16} className={getClass('menuIcon')} />
-            )}
-            <span>{item.label}</span>
-          </div>
-        </Link>
-      )}
+      </div>
 
       {hasChildren && (
         <div
           ref={ref}
           className={
             isDesktop
-              ? `${getClass('dropdown')} ${isOpen ? getClass('dropdownOpen') : ''}`
-              : `${getClass('dropdownClick')} ${isOpen ? getClass('dropdownClickOpen') : ''}`
+              ? `${getClass("dropdown")} ${
+                  isOpen ? getClass("dropdownOpen") : ""
+                }`
+              : `${getClass("dropdownClick")} ${
+                  isOpen ? getClass("dropdownClickOpen") : ""
+                }`
           }
         >
-          {item.children && renderMenuItems(item.children, keyPath)}
+          {renderMenuItems(item.children, keyPath, nameColor || "")}
         </div>
       )}
     </div>

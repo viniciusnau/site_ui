@@ -21,6 +21,7 @@ import {
   containerForm,
   serviceButtonsForm,
   quickAccessButtonsForm,
+  headerForm,
   UnityAndCores,
 } from "./interfaces";
 
@@ -574,6 +575,22 @@ async getCategory(ids?: number[]): Promise<categoryForm> {
     return this.delete<any>(`/page/${id}/`, true);
   }
 
+  async getHeader(): Promise<headerForm>{
+    return this.get<headerForm>(`/header/`)
+  }
+
+  async postHeader(data: any): Promise<headerForm>{
+    return this.post<headerForm>(`/header/`, data)
+  }
+
+  async patchHeader(data: any): Promise<headerForm>{
+    return this.patch<headerForm>(`/header/`, data)
+  }
+
+  async deleteHeader(id: number): Promise<headerForm>{
+    return this.delete<headerForm>(`/header/${id}/`)
+  }
+
   async getProfiles(): Promise<any> {
     return this.get<any>(`/profiles/`, true);
   }
@@ -672,6 +689,10 @@ const services = {
   patchPage: (body: any, id: number) => apiService.patchPage(body, id),
   deletePage: (id: number) => apiService.deletePage(id),
   getProfiles: () => apiService.getProfiles(),
+  getHeader: () => apiService.getHeader(),
+  postHeader: (data: any) => apiService.postHeader(data),
+  patchHeader: (data: any) => apiService.patchHeader(data),
+  deleteHeader: (id: number) => apiService.deleteHeader(id),
 };
 
 export default services;
