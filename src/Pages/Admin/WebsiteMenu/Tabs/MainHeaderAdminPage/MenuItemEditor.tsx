@@ -1,4 +1,3 @@
-import { useState, useRef } from "react";
 import {
   ChevronDown,
   ChevronRight,
@@ -8,6 +7,10 @@ import {
 } from "lucide-react";
 import { useDrag, useDrop } from "react-dnd";
 import { MenuItem } from "../../../../../Services/interfaces";
+import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 const ITEM_TYPE = "MENU_ITEM";
 
@@ -21,9 +24,12 @@ const MenuItemEditor = ({
   level = 0,
   width = 100,
 }: any) => {
+  const data = useSelector((state: any) => state.pagesSlice.data);
   const [isExpanded, setIsExpanded] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const [value, setValue] = useState<any | null>(null);
+  const [inputValue, setInputValue] = React.useState("");
 
   const getClass = (base: string) => {
     const baseClass = styles[base] || "";
@@ -125,12 +131,43 @@ const MenuItemEditor = ({
     switch (item.type) {
       case "internal":
         return (
-          <input
-            type="text"
-            placeholder="ID da página"
-            value={item.page || ""}
-            onChange={(e) => handleFieldChange("page", e.target.value)}
-            className={getClass("input")}
+          <Autocomplete
+            value={data.find((page: any) => page.id === item.page) || null}
+            onChange={(event: any, newValue: any) => {
+              setValue(newValue);
+              handleFieldChange("page", newValue ? newValue.id : null);
+            }}
+            inputValue={inputValue}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+            }}
+            id="page-selector"
+            options={data}
+            getOptionLabel={(option) => option?.title || ""}
+            isOptionEqualToValue={(option, value) => option?.id === value?.id}
+            sx={{
+              width: "100%",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "4px",
+                backgroundColor: "#fff",
+                "& fieldset": { borderColor: "#ccc" },
+                "&:hover fieldset": { borderColor: "#3ed219ff" },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#37c414ff",
+                  borderWidth: 2,
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: "#555",
+                fontWeight: 500,
+              },
+              "& .MuiAutocomplete-listbox": {
+                backgroundColor: "#fafafa",
+              },
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Selecione a página" />
+            )}
           />
         );
       case "external":

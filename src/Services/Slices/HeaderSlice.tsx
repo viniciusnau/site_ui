@@ -142,10 +142,10 @@ export const postHeader = (payload: any) => async (dispatch: any) => {
 };
 
 export const patchHeader =
-  (payload: any, id: number) => async (dispatch: any) => {
+  (payload: any) => async (dispatch: any) => {
     dispatch(updateHeader());
     try {
-      const response = await services.patchHeader(payload, id);
+      const response = await services.patchHeader(payload);
       dispatch(updateHeaderSuccess(response));
       return response;
     } catch (err: any) {

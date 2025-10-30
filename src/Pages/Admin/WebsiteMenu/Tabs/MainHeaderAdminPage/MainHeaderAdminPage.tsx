@@ -5,6 +5,7 @@ import {
   patchHeader,
   fetchHeader,
 } from "../../../../../Services/Slices/HeaderSlice";
+import { fetchPages } from "../../../../../Services/Slices/PagesSlice";
 import { headerForm, MenuItem } from "../../../../../Services/interfaces";
 import MenuItemEditor from "./MenuItemEditor";
 import style from "./MainHeaderAdminPage.module.css";
@@ -21,7 +22,6 @@ function MainHeaderAdminPage() {
   const dispatch = useDispatch<any>();
   const data = useSelector((state: any) => state.headerSlice.data);
   const initialForm: headerForm = {
-    id: 1,
     status: "published",
     name_color: "#ffffff",
     background_color: "#1a1a1a",
@@ -35,6 +35,7 @@ function MainHeaderAdminPage() {
 
   useEffect(() => {
     dispatch(fetchHeader());
+    dispatch(fetchPages());
   }, [dispatch]);
 
   useEffect(() => {
@@ -79,7 +80,7 @@ function MainHeaderAdminPage() {
   const handleSave = async () => {
     try {
       let response;
-      response = await dispatch(patchHeader(form, form.id));
+      response = await dispatch(patchHeader(form));
 
       if (response?.error || response?.status >= 400) {
         throw new Error("Erro ao salvar Cabeçalho");

@@ -572,8 +572,8 @@ async getCategory(ids?: number[]): Promise<categoryForm> {
     return this.post<headerForm>(`/header/`, data)
   }
 
-  async patchHeader(data: any, id: number): Promise<headerForm>{
-    return this.patch<headerForm>(`/header/${id}/`, data)
+  async patchHeader(data: any): Promise<headerForm>{
+    return this.patch<headerForm>(`/header/`, data)
   }
 
   async deleteHeader(id: number): Promise<headerForm>{
@@ -676,10 +676,10 @@ const services = {
   postPage: (body: any) => apiService.postPage(body),
   patchPage: (body: any, id: number) => apiService.patchPage(body, id),
   deletePage: (id: number) => apiService.deletePage(id),
-  getProfiles: () => apiService.getProfiles(),,
+  getProfiles: () => apiService.getProfiles(),
   getHeader: () => apiService.getHeader(),
   postHeader: (data: any) => apiService.postHeader(data),
-  patchHeader: (data: any, id: number) => apiService.patchHeader(data, id),
+  patchHeader: (data: any) => apiService.patchHeader(data),
   deleteHeader: (id: number) => apiService.deleteHeader(id),
 };
 

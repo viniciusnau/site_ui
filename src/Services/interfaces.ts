@@ -222,7 +222,6 @@ interface quickAccessButtonsForm{
 }
 
 interface headerForm{
-  id: number;
   status: string;
   background_color: string;
   name_color: string;
