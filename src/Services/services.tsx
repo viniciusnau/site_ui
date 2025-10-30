@@ -52,28 +52,30 @@ class ApiService {
   }
 
   private async get<T>(
-      endpoint: string,
-      requireAuth: boolean = false
-  ): Promise<T> {
-    try {
-      const headers = this.getAuthHeaders();
-      const config: AxiosRequestConfig = {};
+  endpoint: string,
+  params?: any, 
+  requireAuth: boolean = false
+): Promise<T> {
+  try {
+    const headers = this.getAuthHeaders();
+    const config: AxiosRequestConfig = {};
 
-      if (headers) {
-        config.headers = headers;
-      }
-
-      const response: AxiosResponse<T> = await axios.get(
-          `${this.baseURL}${endpoint}`,
-          config
-      );
-
-      return response.data;
-    } catch (error: any) {
-      console.error(`Erro na requisição GET ${endpoint}:`, error);
-      throw error;
+    if (headers) {
+      config.headers = headers;
     }
+    if (params) {
+      config.params = params;
+    }
+    const response: AxiosResponse<T> = await axios.get(
+      `${this.baseURL}${endpoint}`,
+      config
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error(`Erro na requisição GET ${endpoint}:`, error);
+    throw error;
   }
+}
 
   private async patch<T>(
     endpoint: string,
@@ -240,7 +242,7 @@ class ApiService {
   }
 
   async getUsersByModels(model: string): Promise<User[]> {
-    return this.get<User[]>(`/authors/${model}/`, true);
+    return this.get<User[]>(`/authors/${model}/`, undefined, true);
   }
 
   async getCore(published?: string): Promise<Core[]> {
@@ -316,7 +318,7 @@ class ApiService {
   }
 
   async getTag(): Promise<Tag> {
-    return this.get<Tag>(`/tag/`, false);
+    return this.get<Tag>(`/tag/`, undefined, false);
   }
 
   async postTag(body: string): Promise<Tag> {
@@ -331,10 +333,16 @@ class ApiService {
     return this.delete<Tag>(`/tag/${id}/`);
   }
 
-  async getNews(published?: string): Promise<NewsForm> {
-    const query = published ? `?published=${published}` : "";
-    return this.get<NewsForm>(`/news/${query}`);
+  async getNews(published?: string, page: number = 1, pageSize?: number): Promise<any> {
+  const params: any = {
+    page: page,
+    page_size: pageSize
+  };
+  if (published) {
+    params.published = published;
   }
+  return this.get(`/news/`, { params });
+}
 
   async postNews(body: any): Promise<NewsForm> {
     return this.post<NewsForm>(`/news/`, body);
@@ -627,7 +635,8 @@ const services = {
   postTag: (body: string) => apiService.postTag(body),
   patchTag: (body: string, id: number) => apiService.patchTag(body, id),
   deleteTag: (id: number) => apiService.deleteTag(id),
-  getNews: (published?: string) => apiService.getNews(published),
+  getNews: (published?: string, page: number = 1, pageSize?: number) => 
+    apiService.getNews(published, page, pageSize),
   postNews: (body: any) => apiService.postNews(body),
   patchNews: (body: any, id: number) => apiService.patchNews(body, id),
   deleteNews: (id: number) => apiService.deleteNews(id),

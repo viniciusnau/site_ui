@@ -92,3 +92,26 @@
 .readMore:hover {
     text-decoration: underline;
 }
+
+.paginationContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+  width: 100%;
+}
+
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.paginationInfo {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
