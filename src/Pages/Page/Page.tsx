@@ -5,6 +5,11 @@ import { fetchPages } from "../../Services/Slices/PagesSlice";
 import styles from "./Page.module.css";
 import News from "../News/News";
 import Loading from "../../Components/Loading/Loading";
+import FrequentsQuestions from "../FAQ/FrequentsQuestions";
+import Posters from "../Posters/MainPostersPage";
+import UnityAndCores from "../Support/UnityAndCores/UnityAndCores";
+import style from "../../Components/Pages/News/NewsPage.module.css";
+import DOMPurify from "dompurify";
 
 function Page() {
     const dispatch = useDispatch<any>();
@@ -34,15 +39,30 @@ function Page() {
         return <News />;
     }
 
+    if (data.has_faq) {
+        return <FrequentsQuestions />;
+    }
+
+    if (data.has_posters) {
+        return <Posters />;
+    }
+
+    if (data.has_cores) {
+        return <UnityAndCores />;
+    }
+
     if (data.text) {
         return (
             <div className={styles.container}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{data.title}</h1>
-                    <div
-                        className={styles.text}
-                        dangerouslySetInnerHTML={{ __html: data.text }}
-                    />
+                    <div className={style.textContainer}>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(data.text),
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         );

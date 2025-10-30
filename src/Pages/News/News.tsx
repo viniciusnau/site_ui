@@ -34,7 +34,7 @@ function News() {
                     {data.map((item: any) => (
                         <Link
                             key={item.id}
-                            to={`/comunicacao/noticias/${item.slug}`}
+                            to={`/${item.path}`}
                             className={styles.newsCard}
                         >
                             <img
