@@ -39,7 +39,7 @@ function Page() {
     if (error) return notFound;
     if (!data) return notFound;
 
-    if (data.status !== "not_published") {
+    if (data.status !== "published") {
         return notFound;
     }
 
