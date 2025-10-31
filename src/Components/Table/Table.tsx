@@ -132,7 +132,7 @@ function Table<T extends Record<string, any>>({
     };
   }, [tableId]);
 
-  const filteredData = data.filter((item) => {
+  const filteredData = (Array.isArray(data) ? data : []).filter((item) => {
     if (onDateFilter || onSearchFilter || onGenericFilter) {
       return true;
     }

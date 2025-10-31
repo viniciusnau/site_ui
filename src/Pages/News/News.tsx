@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Pagination } from "@mui/material";
-import { fetchNews } from "../../Services/Slices/NewsSlice";
+import { fetchNewsPagination } from "../../Services/Slices/PaginationNewsSlice";
 import Loading from "../../Components/Loading/Loading";
 import styles from "./News.module.css";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ function News() {
     const pageSize = 10;
 
     useEffect(() => {
-        dispatch<any>(fetchNews("true", currentPage, pageSize));
+        dispatch<any>(fetchNewsPagination("true", currentPage, pageSize));
     }, [dispatch, currentPage]);
 
     const totalPages = data?.count ? Math.ceil(data.count / pageSize) : 0;

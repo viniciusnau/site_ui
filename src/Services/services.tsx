@@ -333,16 +333,37 @@ class ApiService {
     return this.delete<Tag>(`/tag/${id}/`);
   }
 
-  async getNews(published?: string, page: number = 1, pageSize?: number): Promise<any> {
-  const params: any = {
-    page: page,
-    page_size: pageSize
-  };
+  async getPaginationNews(published?: string, page?: number, pageSize?: number): Promise<any> {
+  const params: any = {};
+  
+  if (page) {
+    params.page = page;
+  }
+  if (pageSize) {
+    params.page_size = pageSize;
+  }
   if (published) {
     params.published = published;
   }
-  return this.get(`/news/`, { params });
+  
+  return this.get(`pagination/news/`, { params });
 }
+  async postPaginationNews(body: any): Promise<NewsForm> {
+    return this.post<NewsForm>(`pagination/news/`, body);
+  }
+
+  async patchPaginationNews(body: any, id: number): Promise<NewsForm> {
+    return this.patch<NewsForm>(`pagination/news/${id}/`, body);
+  }
+
+  async deletePaginationNews(id: number): Promise<NewsForm> {
+    return this.delete<NewsForm>(`pagination/news/${id}/`);
+  }
+
+  async getNews(published?: string): Promise<NewsForm> {
+  const query = published ? `?published=${published}` : ""; 
+    return this.get<NewsForm>(`/news/${query}`);
+  }
 
   async postNews(body: any): Promise<NewsForm> {
     return this.post<NewsForm>(`/news/`, body);
@@ -635,8 +656,13 @@ const services = {
   postTag: (body: string) => apiService.postTag(body),
   patchTag: (body: string, id: number) => apiService.patchTag(body, id),
   deleteTag: (id: number) => apiService.deleteTag(id),
-  getNews: (published?: string, page: number = 1, pageSize?: number) => 
-    apiService.getNews(published, page, pageSize),
+  getPaginationNews: (published?: string, page: number = 1, pageSize?: number) => 
+    apiService.getPaginationNews(published, page, pageSize),
+  postPaginationNews: (body: any) => apiService.postPaginationNews(body),
+  patchPaginationNews: (body: any, id: number) => apiService.patchPaginationNews(body, id),
+  deletePaginationNews: (id: number) => apiService.deletePaginationNews(id),
+  getNews: (published?: string) => 
+    apiService.getNews(published),
   postNews: (body: any) => apiService.postNews(body),
   patchNews: (body: any, id: number) => apiService.patchNews(body, id),
   deleteNews: (id: number) => apiService.deleteNews(id),

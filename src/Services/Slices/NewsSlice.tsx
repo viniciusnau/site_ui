@@ -118,7 +118,7 @@ export const fetchNews = (published?: string, page?: number, pageSize?: number) 
 ) => {
   dispatch(getNews());
   try {
-    const data = await services.getNews(published, page, pageSize);
+    const data = await services.getNews(published);
     dispatch(getNewsSuccess(data));
   } catch (err: any) {
     const detailError = err.response?.data || err.message;
