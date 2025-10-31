@@ -10,6 +10,12 @@
     color: #333;
 }
 
+.moduleContainer {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
 .headerContainer {
     width: 100%;
     text-align: center;

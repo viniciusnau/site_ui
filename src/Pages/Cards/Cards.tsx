@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCards } from "../../Services/Slices/CardsSlice";
 import Loading from "../../Components/Loading/Loading";
 import CardButton from "../../Components/CardButton/CardButton";
-import style from "./Cards.module.css";
 
 interface CardsProps {
     id: string;
@@ -33,14 +32,7 @@ function Cards({ id }: CardsProps) {
         ],
     }));
 
-    return (
-        <div className={style.container}>
-            <h1 className={style.title}>{data.title}</h1>
-            <div className={style.registersContainer}>
-                <CardButton cards={registers} />
-            </div>
-        </div>
-    );
+    return <CardButton cards={registers} />;
 }
 
 export default Cards;
