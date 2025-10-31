@@ -116,7 +116,7 @@ function Cards() {
     width: "150px",
     permissions: { canView: true, canEdit: true, canDelete: true, canCreate: true },
     view: {
-      enabled: true,
+      enabled: ((item: any) => Boolean(item.path)) as any,
       onClick: (item) => {
         window.open(`/${item.path}`, "_blank");
       },

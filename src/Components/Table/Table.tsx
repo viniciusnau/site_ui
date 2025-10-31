@@ -644,53 +644,58 @@ function Table<T extends Record<string, any>>({
 
     const permissions = actionsColumn.permissions || {};
     const hasAnyPermission =
-      permissions.canView || permissions.canEdit || permissions.canDelete;
+        permissions.canView || permissions.canEdit || permissions.canDelete;
 
     if (!hasAnyPermission) return null;
 
+    const isEnabled = (value?: boolean | ((row: T) => boolean)) =>
+        typeof value === "function" ? value(item) : value !== false;
+
     return (
-      <div
-        className={style.actionsContainer}
-        style={customStyles?.actionsContainer}
-      >
-        {permissions.canView && actionsColumn.view?.enabled !== false && (
-          <Tooltips message="Visualizar" placement="top">
-            <div
-              className={style.actionButton}
-              style={customStyles?.actionButton}
-              onClick={() => actionsColumn.view?.onClick(item)}
-            >
-              <Eye size={iconSize} />
-            </div>
-          </Tooltips>
-        )}
-        {permissions.canEdit && actionsColumn.edit?.enabled !== false && (
-          <Tooltips message="Editar" placement="top">
-            <div
-              className={style.actionButton}
-              style={customStyles?.actionButton}
-              onClick={() =>
-                actionsColumn.edit?.onClick
-                  ? actionsColumn.edit.onClick(item)
-                  : handleEdit(item)
-              }
-            >
-              <Pencil size={iconSize} />
-            </div>
-          </Tooltips>
-        )}
-        {permissions.canDelete && actionsColumn.delete?.enabled !== false && (
-          <Tooltips message="Excluir" placement="top">
-            <div
-              className={`${style.actionButton} ${style.remove}`}
-              style={customStyles?.actionButton}
-              onClick={() => handleDeleteClick(item)}
-            >
-              <Trash2 size={iconSize} />
-            </div>
-          </Tooltips>
-        )}
-      </div>
+        <div
+            className={style.actionsContainer}
+            style={customStyles?.actionsContainer}
+        >
+          {permissions.canView && isEnabled(actionsColumn.view?.enabled) && (
+              <Tooltips message="Visualizar" placement="top">
+                <div
+                    className={style.actionButton}
+                    style={customStyles?.actionButton}
+                    onClick={() => actionsColumn.view?.onClick?.(item)}
+                >
+                  <Eye size={iconSize} />
+                </div>
+              </Tooltips>
+          )}
+
+          {permissions.canEdit && isEnabled(actionsColumn.edit?.enabled) && (
+              <Tooltips message="Editar" placement="top">
+                <div
+                    className={style.actionButton}
+                    style={customStyles?.actionButton}
+                    onClick={() =>
+                        actionsColumn.edit?.onClick
+                            ? actionsColumn.edit.onClick(item)
+                            : handleEdit(item)
+                    }
+                >
+                  <Pencil size={iconSize} />
+                </div>
+              </Tooltips>
+          )}
+
+          {permissions.canDelete && isEnabled(actionsColumn.delete?.enabled) && (
+              <Tooltips message="Excluir" placement="top">
+                <div
+                    className={`${style.actionButton} ${style.remove}`}
+                    style={customStyles?.actionButton}
+                    onClick={() => handleDeleteClick(item)}
+                >
+                  <Trash2 size={iconSize} />
+                </div>
+              </Tooltips>
+          )}
+        </div>
     );
   };
 

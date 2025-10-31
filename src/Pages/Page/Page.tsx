@@ -12,6 +12,7 @@ import style from "../../Components/Pages/News/NewsPage.module.css";
 import DOMPurify from "dompurify";
 import Cards from "../Cards/Cards";
 import ModulesTable from "../../Components/ModulesTable/ModulesTable";
+import {isLoggedIn} from "../../Auth/Auth";
 
 function Page() {
     const dispatch = useDispatch<any>();

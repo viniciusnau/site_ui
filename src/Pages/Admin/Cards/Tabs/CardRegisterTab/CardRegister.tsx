@@ -185,7 +185,7 @@ function CardRegister() {
       canCreate: true,
     },
     view: {
-      enabled: true,
+      enabled: ((item: any) => Boolean(item.path)) as any,
       onClick: (item) => {
         window.open(`/${item.path}`, "_blank");
       },

@@ -188,7 +188,7 @@ function Posters() {
       canCreate: true,
     },
     view: {
-      enabled: true,
+      enabled: ((item: any) => Boolean(item.path)) as any,
       onClick: (item) => {
         window.open(`/servicos/cartilhas-e-revista/${item.slug}`, "_blank");
       },

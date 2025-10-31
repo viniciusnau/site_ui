@@ -179,7 +179,7 @@ function Pages() {
         width: "150px",
         permissions: { canEdit: true, canDelete: true, canCreate: true, canView: true },
         view: {
-            enabled: true,
+            enabled: ((item: any) => Boolean(item.path)) as any,
             onClick: (item) => {
                 const baseUrl = window.location.origin;
                 window.open(`${baseUrl}${item.path}`, "_blank");
