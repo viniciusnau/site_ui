@@ -24,48 +24,60 @@ function Page() {
         dispatch(fetchPages(currentPath));
     }, [dispatch, location.pathname]);
 
-    const notFound = <div className={styles.container}>
-        <div className={styles.content}>
-            <h1 className={styles.title}>Página não encontrada!</h1>
-            <p className={styles.text}>
-                O caminho que você tentou acessar não está disponível.
-                <br />
-                Volte para a página inicial para continuar.
-            </p>
+    const notFound = (
+        <div className={styles.container}>
+            <div className={styles.content}>
+                <h1 className={styles.title}>Página não encontrada!</h1>
+                <p className={styles.text}>
+                    O caminho que você tentou acessar não está disponível.
+                    <br />
+                    Volte para a página inicial para continuar.
+                </p>
+            </div>
         </div>
-    </div>
+    );
 
     if (loading) return <Loading size={100} type="spin" label="Carregando página..." />;
-    if (error) return notFound;
-    if (!data) return notFound;
+    if (error || !data) return notFound;
+    if (data.status !== "published") return notFound;
 
-    if (data.status !== "published") {
-        return notFound;
+    if (data.has_news) return <News />;
+    if (data.has_faq) return <FrequentsQuestions />;
+    if (data.has_posters) return <Posters />;
+    if (data.has_cores) return <UnityAndCores />;
+
+    if (data.text && (data.card || data.category)) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.content}>
+                    <h1 className={styles.title}>{data.title}</h1>
+
+                    <div className={style.textContainer}>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(data.text),
+                            }}
+                        />
+                    </div>
+
+                    {data.card && (
+                        <div style={{ marginTop: "2rem" }}>
+                            <Cards id={data.card} />
+                        </div>
+                    )}
+
+                    {data.category && (
+                        <div style={{ marginTop: "2rem" }}>
+                            <ModulesTable categoryIds={[data.category]} />
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
     }
 
-    if (data.has_news) {
-        return <News />;
-    }
-
-    if (data.has_faq) {
-        return <FrequentsQuestions />;
-    }
-
-    if (data.has_posters) {
-        return <Posters />;
-    }
-
-    if (data.has_cores) {
-        return <UnityAndCores />;
-    }
-
-    if (data.card) {
-        return <Cards id={data.card} />;
-    }
-
-    if (data.category) {
-        return <ModulesTable categoryIds={[data.category]} />;
-    }
+    if (data.card) return <Cards id={data.card} />;
+    if (data.category) return <ModulesTable categoryIds={[data.category]} />;
 
     if (data.text) {
         return (
@@ -84,9 +96,7 @@ function Page() {
         );
     }
 
-    return (
-        notFound
-    );
+    return notFound;
 }
 
 export default Page;
