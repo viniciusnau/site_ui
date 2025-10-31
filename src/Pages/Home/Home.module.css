@@ -89,12 +89,6 @@
   }
 }
 
-@media (max-width: 1200px){
-  .container {
-    margin-top: 96px;
-  }
-}
-
 @media (max-width: 1000px) {
 
   .galleryImage {

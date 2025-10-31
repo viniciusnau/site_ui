@@ -24,6 +24,8 @@ import serviceButtonsSlice from "./Slices/ServiceButtonsSlice";
 import quickAccessButtonsSlice from "./Slices/QuickAccessButtonsSlice";
 import CoresAndUnitsSlice from './Slices/CoresAndUnitsSlice';
 import pagesSlice from "./Slices/PagesSlice";
+import headerSlice from "./Slices/HeaderSlice";
+
 import profilesSlice from "./Slices/ProfilesSlice";
 
 const reducer = combineReducers({
@@ -53,6 +55,7 @@ const reducer = combineReducers({
   quickAccessButtonsSlice,
   CoresAndUnitsSlice,
   pagesSlice,
+  headerSlice,
 });
 
 export const store = configureStore({ reducer });
