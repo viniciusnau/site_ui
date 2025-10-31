@@ -227,7 +227,6 @@ const CardRegisterModal = ({
                         Selecione uma coleção
                       </MenuItem>
                       {cards
-                          .filter((item: any) => item.status === "published")
                           .map((item: any) => (
                               <MenuItem key={item.id} value={item.id}>
                                 {item.title}

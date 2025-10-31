@@ -4,10 +4,10 @@ import Table from "../../../../../Components/Table/Table";
 import {
   TableColumn,
   ActionsColumnConfig,
-  CreateButtonConfig,
+  CreateButtonConfig, BooleanColumnConfig,
 } from "../../../../../types/tableTypes";
 import style from "./CardRegister.module.css";
-import { cardRegister } from "../../../../../Components/TableInterfaces";
+import {cardRegister, news} from "../../../../../Components/TableInterfaces";
 import {
   fetchCardRegister,
   removeCardRegister,
@@ -225,6 +225,25 @@ function CardRegister() {
     },
   };
 
+  const processedData = data.map((item: any) => ({
+    ...item,
+    card_detail_status: item.card_detail?.status || null,
+  }));
+
+
+  const booleanConfig: BooleanColumnConfig<cardRegister>[] = [
+    {
+      enabled: true,
+      header: "Status",
+      field: "card_detail_status",
+      checkValue: "published",
+      xValue: "not_published",
+      scheduledValue: "scheduled",
+      width: "50px",
+      sortable: false,
+    }
+  ];
+
   return (
       <>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"pt-br"}>
@@ -296,9 +315,10 @@ function CardRegister() {
           />
 
           <Table
-              data={data}
+              data={processedData}
               columns={columns}
               actionsColumn={ActionsConfig}
+              booleanColumns={booleanConfig}
               createButton={createCardRegister}
               dateColumn={{
                 enabled: true,

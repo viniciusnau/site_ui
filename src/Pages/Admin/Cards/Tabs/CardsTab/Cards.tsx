@@ -4,7 +4,7 @@ import Table from "../../../../../Components/Table/Table";
 import {
   TableColumn,
   ActionsColumnConfig,
-  CreateButtonConfig,
+  CreateButtonConfig, BooleanColumnConfig,
 } from "../../../../../types/tableTypes";
 import style from "./Cards.module.css";
 import {
@@ -19,6 +19,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CardsModal from "../../../../../Components/ModalTabs/CardsModal";
 import { cardsForm } from "../../../../../Services/interfaces";
 import DOMPurify from "dompurify";
+import {news} from "../../../../../Components/TableInterfaces";
 
 function Cards() {
   const dispatch = useDispatch();
@@ -81,7 +82,7 @@ function Cards() {
       if (id) {
         response = await dispatch<any>(patchCards({ title: form.title }, id));
       } else {
-        response = await dispatch<any>(postCards({ title: form.title, status: "published" }));
+        response = await dispatch<any>(postCards({ title: form.title, status: "not_published" }));
       }
 
       if (response?.error) throw new Error("Erro ao salvar coleção");
@@ -135,6 +136,19 @@ function Cards() {
     },
   };
 
+  const booleanConfig: BooleanColumnConfig<any>[] = [
+    {
+      enabled: true,
+      header: "Status",
+      field: "status",
+      checkValue: "published",
+      xValue: "not_published",
+      scheduledValue: "scheduled",
+      width: "50px",
+      sortable: false,
+    }
+  ];
+
   return (
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"pt-br"}>
         {["noneChange","postSuccess","postError","patchSuccess","patchError","deleteSuccess","deleteError"].map((type) =>
@@ -168,6 +182,7 @@ function Cards() {
             data={data}
             columns={columns}
             actionsColumn={ActionsConfig}
+            booleanColumns={booleanConfig}
             createButton={createCards}
             dateColumn={{
               enabled: true,
