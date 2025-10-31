@@ -197,7 +197,6 @@ const PagesModal = ({
                                         labelId="allowed_users"
                                         label={"Usuários"}
                                         multiple
-                                        label="Usuários"
                                         value={form.allowed_users || []}
                                         onChange={handleUsersChange}
                                         renderValue={(selected) =>
