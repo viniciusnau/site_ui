@@ -68,7 +68,7 @@ interface unit {
 }
 
 interface news {
-  path: string;
+  path: string | null;
   id: number;
   author: string;
   status: string;
@@ -145,6 +145,7 @@ interface CardDetail{
 }
 
 interface cardRegister {
+  path: string | null;
   card_detail: CardDetail
   id: number;
   author: string;

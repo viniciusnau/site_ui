@@ -10,6 +10,8 @@ import Posters from "../Posters/MainPostersPage";
 import UnityAndCores from "../Support/UnityAndCores/UnityAndCores";
 import style from "../../Components/Pages/News/NewsPage.module.css";
 import DOMPurify from "dompurify";
+import Cards from "../Cards/Cards";
+import ModulesTable from "../../Components/ModulesTable/ModulesTable";
 
 function Page() {
     const dispatch = useDispatch<any>();
@@ -22,8 +24,7 @@ function Page() {
         dispatch(fetchPages(currentPath));
     }, [dispatch, location.pathname]);
 
-    if (loading) return <Loading size={100} type="spin" label="Carregando página..." />;
-    if (error) return <div className={styles.container}>
+    const notFound = <div className={styles.container}>
         <div className={styles.content}>
             <h1 className={styles.title}>Página não encontrada!</h1>
             <p className={styles.text}>
@@ -32,8 +33,15 @@ function Page() {
                 Volte para a página inicial para continuar.
             </p>
         </div>
-    </div>;
-    if (!data) return null;
+    </div>
+
+    if (loading) return <Loading size={100} type="spin" label="Carregando página..." />;
+    if (error) return notFound;
+    if (!data) return notFound;
+
+    if (data.status !== "not_published") {
+        return notFound;
+    }
 
     if (data.has_news) {
         return <News />;
@@ -49,6 +57,14 @@ function Page() {
 
     if (data.has_cores) {
         return <UnityAndCores />;
+    }
+
+    if (data.card) {
+        return <Cards id={data.card} />;
+    }
+
+    if (data.category) {
+        return <ModulesTable categoryIds={[data.category]} />;
     }
 
     if (data.text) {
@@ -69,16 +85,7 @@ function Page() {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.content}>
-                <h1 className={styles.title}>Página não encontrada!</h1>
-                <p className={styles.text}>
-                    O caminho que você tentou acessar não está disponível.
-                    <br />
-                    Volte para a página inicial para continuar.
-                </p>
-            </div>
-        </div>
+        notFound
     );
 }
 

@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { fetchCards } from "../../Services/Slices/CardsSlice";
 import Loading from "../../Components/Loading/Loading";
 import CardButton from "../../Components/CardButton/CardButton";
 import style from "./Cards.module.css";
 
-function Cards() {
-    const { id } = useParams();
-    const dispatch = useDispatch();
+interface CardsProps {
+    id: string;
+}
+
+function Cards({ id }: CardsProps) {
+    const dispatch = useDispatch<any>();
     const { data, loading, error } = useSelector((state: any) => state.cardsSlice);
 
     useEffect(() => {
-        if (id) dispatch<any>(fetchCards(id));
+        if (id) dispatch(fetchCards(id));
     }, [dispatch, id]);
 
     if (loading) return <Loading size={100} type="spin" label="Carregando cards..." />;
@@ -26,7 +28,7 @@ function Cards() {
             {
                 description: reg.subtitle,
                 seeMore: true,
-                link: `/colecao/registro/${reg.slug}`,
+                link: `/${reg.path}`,
             },
         ],
     }));
