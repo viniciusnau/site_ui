@@ -76,8 +76,30 @@ function Page() {
         );
     }
 
-    if (data.card) return <Cards id={data.card} />;
-    if (data.category) return <ModulesTable categoryIds={[data.category]} />;
+    if (data.card) return (
+        <div className={styles.container}>
+            <div className={styles.content}>
+                <h1 className={styles.title}>{data.title}</h1>
+
+                <div style={{ marginTop: "2rem" }}>
+                    <Cards id={data.card} />
+                </div>
+
+            </div>
+        </div>
+    );
+    if (data.category) return (
+        <div className={styles.container}>
+            <div className={styles.content}>
+                <h1 className={styles.title}>{data.title}</h1>
+
+                <div style={{ marginTop: "2rem" }}>
+                    <ModulesTable categoryIds={[data.category]} />
+                </div>
+
+            </div>
+        </div>
+    );
 
     if (data.text) {
         return (
