@@ -118,7 +118,7 @@ function Cards() {
     view: {
       enabled: true,
       onClick: (item) => {
-        window.open(`/colecao/${item.id}`, "_blank");
+        window.open(`/${item.path}`, "_blank");
       },
     },
     edit: {

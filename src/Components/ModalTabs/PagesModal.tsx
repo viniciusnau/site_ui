@@ -1,19 +1,11 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import Modal from "../Modal/Modal";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import {
-    Checkbox,
-    FormControl,
-    InputLabel,
-    ListItemText,
-    MenuItem,
-    Select,
-} from "@mui/material";
-import { SelectChangeEvent } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import {Checkbox, FormControl, InputLabel, ListItemText, MenuItem, Select, SelectChangeEvent,} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchCards} from "../../Services/Slices/CardsSlice";
 import {fetchCategory} from "../../Services/Slices/CategorySlice";
 import {fetchProfiles} from "../../Services/Slices/ProfilesSlice";
@@ -159,7 +151,7 @@ const PagesModal = ({
                                     <InputLabel id="card">Coleção</InputLabel>
                                     <Select
                                         labelId="card"
-                                        label="Coleção"
+                                        label={"Coleção"}
                                         value={form.card || ""}
                                         onChange={(e) => handleSelect(e, "card")}
                                     >
@@ -181,7 +173,7 @@ const PagesModal = ({
                                     <InputLabel id="category">Categoria</InputLabel>
                                     <Select
                                         labelId="category"
-                                        label="Categoria"
+                                        label={"Categoria"}
                                         value={form.category || ""}
                                         onChange={(e) => handleSelect(e, "category")}
                                     >
@@ -203,8 +195,8 @@ const PagesModal = ({
                                     <InputLabel id="allowed_users">Usuários</InputLabel>
                                     <Select
                                         labelId="allowed_users"
+                                        label={"Usuários"}
                                         multiple
-                                        label="Usuários"
                                         value={form.allowed_users || []}
                                         onChange={handleUsersChange}
                                         renderValue={(selected) =>
@@ -240,7 +232,16 @@ const PagesModal = ({
                                                     type="checkbox"
                                                     checked={(form as any)[key]}
                                                     onChange={() =>
-                                                        setForm((prev) => ({ ...prev, [key]: !prev[key as keyof PageForm] }))
+                                                        setForm((prev) => {
+                                                            return {
+                                                                ...prev,
+                                                                has_faq: false,
+                                                                has_news: false,
+                                                                has_posters: false,
+                                                                has_cores: false,
+                                                                [key]: !prev[key as keyof PageForm],
+                                                            };
+                                                        })
                                                     }
                                                 />
                                                 <p className={getClass("checkboxText")}>{label}</p>

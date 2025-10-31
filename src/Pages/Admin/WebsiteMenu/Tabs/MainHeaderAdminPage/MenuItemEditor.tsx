@@ -27,7 +27,8 @@ const MenuItemEditor = ({
   const data = useSelector((state: any) => state.pagesSlice.data);
   const [isExpanded, setIsExpanded] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dragIconRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState<any | null>(null);
   const [inputValue, setInputValue] = React.useState("");
 
@@ -36,14 +37,6 @@ const MenuItemEditor = ({
     return `${baseClass}`.trim();
   };
 
-  const [{ isDragging }, dragRef] = useDrag({
-    type: ITEM_TYPE,
-    item: { item, index, level },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
   const [localDropPosition, setLocalDropPosition] = useState<
     "above" | "below" | "inside" | null
   >(null);
@@ -51,9 +44,9 @@ const MenuItemEditor = ({
   const [{ isOver }, dropRef] = useDrop({
     accept: ITEM_TYPE,
     hover(dragged: any, monitor) {
-      if (!ref.current) return;
+      if (!containerRef.current) return;
 
-      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverBoundingRect = containerRef.current.getBoundingClientRect();
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
@@ -63,8 +56,8 @@ const MenuItemEditor = ({
       const hoverClientX = clientOffset.x - hoverBoundingRect.left;
 
       let newPosition: "above" | "below" | "inside" | null = null;
-
       const insideThreshold = hoverBoundingRect.width * 0.85;
+
       if (
         hoverClientY < hoverMiddleY &&
         hoverClientX < hoverBoundingRect.width - insideThreshold
@@ -88,17 +81,21 @@ const MenuItemEditor = ({
     drop(dragged: any) {
       if (!dragged.dropTarget || dragged.item.uid === dragged.dropTarget.uid)
         return;
-
       onMove(dragged.item, dragged.dropTarget, dragged.dropPosition);
       setLocalDropPosition(null);
     },
-
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
+    collect: (monitor) => ({ isOver: monitor.isOver() }),
   });
 
-  dragRef(dropRef(ref));
+  dropRef(containerRef); 
+
+  const [{ isDragging }, dragRefIcon] = useDrag({
+    type: ITEM_TYPE,
+    item: { item, index, level },
+    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
+  });
+
+  dragRefIcon(dragIconRef);
 
   const handleFieldChange = (field: string, value: any) => {
     onUpdate({ ...item, [field]: value });
@@ -132,10 +129,10 @@ const MenuItemEditor = ({
       case "internal":
         return (
           <Autocomplete
-            value={data.find((page: any) => page.id === item.page) || null}
+            value={data.find((page: any) => page.path === item.page) || null}
             onChange={(event: any, newValue: any) => {
               setValue(newValue);
-              handleFieldChange("page", newValue ? newValue.id : null);
+              handleFieldChange("page", newValue ? newValue.path : null);
             }}
             inputValue={inputValue}
             onInputChange={(event, newInputValue) => {
@@ -220,7 +217,7 @@ const MenuItemEditor = ({
 
   return (
     <div
-      ref={ref}
+      ref={containerRef}
       className={getClass("editorContainer")}
       style={{
         width: `${width - 2}%`,
@@ -232,7 +229,13 @@ const MenuItemEditor = ({
     >
       <div className={getClass("editorContent")}>
         <div className={getClass("editorCard")}>
-          <GripVertical size={16} className={getClass("grip")} />
+          <div
+            ref={dragIconRef}
+            style={{ cursor: "grab", display: "flex", alignItems: "center" }}
+          >
+            <GripVertical size={16} className={getClass("grip")} />
+          </div>
+
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className={getClass("card")}
